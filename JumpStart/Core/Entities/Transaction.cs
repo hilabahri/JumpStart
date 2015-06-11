@@ -45,7 +45,7 @@ namespace Core.Entities
         public string CourseID { get; set; }
 
         [BsonElement("creationDate")]
-        [JsonProperty("cretionDate")]
+        [JsonProperty("creationDate")]
         [BsonRepresentation(BsonType.String)]
         [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         public DateTime CreationDate { get; set; }
@@ -62,8 +62,8 @@ namespace Core.Entities
         [JsonConverter(typeof(StringEnumConverter))]
         public TransactionStatus Status { get; set; }
 
-        [BsonElement("dononrToBeExposed")]
+        [BsonElement("donorToBeExposed")]
         [JsonProperty("donorToBeExposed")]
-        public bool DonorWantToBeWxposed { get; set; }
+        public bool DonorWantToBeExposed { get; set; }
     }
 }
