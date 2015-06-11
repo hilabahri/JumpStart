@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{CFDF8B6B-4049-4EEE-9E63-74A69A380168}"
 	ProjectSection(ProjectDependencies) = postProject
 		{23025D2D-3C4C-4439-97FE-EF959A6E1CDA} = {23025D2D-3C4C-4439-97FE-EF959A6E1CDA}

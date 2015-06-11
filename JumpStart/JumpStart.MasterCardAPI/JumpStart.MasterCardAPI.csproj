@@ -30,15 +30,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\Externals\newtonsoft\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="SimplifySDK">
+    <Reference Include="SimplifySDK, Version=1.2.0.0, Culture=neutral, PublicKeyToken=8512cbf25aedd31b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Externals\api\SimplifySDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIConnector.cs" />
+    <Compile Include="CurrencyType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
