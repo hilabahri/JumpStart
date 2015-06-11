@@ -45,6 +45,7 @@
     <Compile Include="Entities\Course.cs" />
     <Compile Include="Entities\Donated.cs" />
     <Compile Include="Entities\Donor.cs" />
+    <Compile Include="Entities\FundRequest.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Program.cs" />
