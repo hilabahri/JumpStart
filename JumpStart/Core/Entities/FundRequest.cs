@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,10 +11,15 @@ namespace Core.Entities
 {
     public class FundRequest
     {
+        [BsonElement("courseId")]
+        [JsonProperty("courseId")]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string CourseID { get; set; }
 
-        public string DonatedID { get; set; }
-
+        [BsonElement("optionalDates")]
+        [JsonProperty("optionalDates")]
+        [BsonRepresentation(BsonType.String)]
+        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
         public List<DateTime> OptionalDates { get; set; }
     }
 }
