@@ -21,6 +21,8 @@ namespace Core.Entities
 
         public string LastName { get; set; }
 
+        public string IdentityCardNum { get; set; }
+
         public Address UserAddress { get; set; }
 
         public bool WantToBeExposed { get; set; }
