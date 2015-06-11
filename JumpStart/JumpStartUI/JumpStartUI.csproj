@@ -245,6 +245,8 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Images\blue-user-icon.png" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Images\slider-1.jpg" />
     <Content Include="Images\sort_asc.png" />
     <Content Include="Images\sort_asc_disabled.png" />
     <Content Include="Images\sort_both.png" />
@@ -260,7 +262,6 @@
     <Content Include="Images\icon-2.jpg" />
     <Content Include="Images\icon-3.jpg" />
     <Content Include="Images\line-1.gif" />
-    <Content Include="Images\logo.png" />
     <Content Include="Images\marker.png" />
     <Content Include="Images\page1-img1.png" />
     <Content Include="Images\page1-img2.png" />
@@ -281,7 +282,6 @@
     <Content Include="Images\page4-img5.jpg" />
     <Content Include="Images\page4-img6.jpg" />
     <Content Include="Images\pagination.png" />
-    <Content Include="Images\slider-1.jpg" />
     <Content Include="Images\transp.png" />
     <Content Include="js\Bilbo_400.font.js" />
     <Content Include="js\cufon-replace.js" />

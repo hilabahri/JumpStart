@@ -24,6 +24,6 @@ namespace Core.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string ID { get; set; }
 
-
+        // TODO: add acount details
     }
 }

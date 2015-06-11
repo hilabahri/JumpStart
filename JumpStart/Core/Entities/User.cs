@@ -35,6 +35,10 @@ namespace Core.Entities
         [JsonProperty("description")]
         public string Desciption { get; set; }
 
+        [BsonElement("email")]
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
         [BsonElement("gender")]
         [JsonProperty("gender")]
         [BsonRepresentation(BsonType.String)]
