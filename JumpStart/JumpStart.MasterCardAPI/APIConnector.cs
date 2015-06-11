@@ -87,6 +87,10 @@ namespace JumpStart.MasterCardAPI
             return true;
         }
 
+        public static bool MakeRepowerTransaction()
+        {
 
+            return true;
+        }
     }
 }
