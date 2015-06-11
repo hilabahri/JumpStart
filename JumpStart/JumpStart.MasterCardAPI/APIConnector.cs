@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimplifyCommerce.Payments;
+using System.Net;
+using System.IO;
+using System.Runtime.Serialization;
 
 namespace JumpStart.MasterCardAPI
 {
@@ -46,6 +49,44 @@ namespace JumpStart.MasterCardAPI
                 ExpYear = year,
                 Number = id
             };
+        }
+
+        public static bool CardIsNotLostOrStolen(string cardNumber)
+        {
+            var request = (HttpWebRequest)WebRequest.Create("http://dmartin.org:8018/fraud/loststolen/v1/account-inquiry?Format=XML");
+
+            System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+            if (String.IsNullOrEmpty(cardNumber))
+                return false;
+            string data = "<AccountInquiry><AccountNumber>"+cardNumber+"</AccountNumber></AccountInquiry>";
+            byte[] arr = encoding.GetBytes(data);
+            request.Method = "PUT";
+            request.ContentType = "application/xml";
+            try
+            {
+                    request.ContentLength = arr.Length;
+                    Stream dataStream = request.GetRequestStream();
+                    dataStream.Write(arr, 0, arr.Length);
+                    dataStream.Close();
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream respStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(respStream);
+                var sResponse = reader.ReadToEnd();
+                if (sResponse.Contains("<Listed>true</Listed>"))
+                    return false;
+
+            }
+            catch(Exception ex){
+                Console.WriteLine(ex.StackTrace);
+                return true;
+            }
+            return true;
+        }
+
+        private static void Serialize(Stream output, object input)
+        {
+            var ser = new DataContractSerializer(input.GetType());
+            ser.WriteObject(output, input);
         }
 
     }
