@@ -96,7 +96,7 @@ namespace JumpStart.APILogics
             try
             {
                 Donated donated = DataManager.Instance.GetDonatedDetails(donatedID);
-                donatedAndFundDetails = new JObject(JsonConvert.SerializeObject(donated));
+                donatedAndFundDetails = JObject.Parse(JsonConvert.SerializeObject(donated));
 
                 if (!donated.WantToBeExposed)
                 {
@@ -106,7 +106,7 @@ namespace JumpStart.APILogics
 
                 donatedAndFundDetails.Add("age", (DateTime.Now.Year - donated.DateOfBirth.Year).ToString());
                 donatedAndFundDetails.Add("course", DataManager.Instance.GetCourseDetails(courseID).CourseName);
-                JObject funds = new JObject(JsonConvert.SerializeObject(donatedAndFundDetails.GetValue("fundRequests")));
+                JObject funds = JObject.Parse(JsonConvert.SerializeObject(donatedAndFundDetails.GetValue("fundRequests")));
 
                 donatedAndFundDetails.Add("");
                 donatedAndFundDetails.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, courseID).ToString() + "$");
@@ -131,16 +131,19 @@ namespace JumpStart.APILogics
 
         public static JObject DonatedSignIn(string userName, string password)
         {
+            JObject result = new JObject();
             Donated donated = new Donated();
             try
             {
                 if (DataManager.Instance.SignIn(userName, password, out donated))
                 {
-                    return new JObject(JsonConvert.SerializeObject(donated));
+                    result = JObject.Parse(JsonConvert.SerializeObject(donated));
                 }
             }
-            catch (Exception) { }
-            return null;
+            catch (Exception ex) {
+                Console.WriteLine(ex.StackTrace);
+            }
+            return result;
         }
 
         public static JObject DonorSignIn(string userName, string password)
