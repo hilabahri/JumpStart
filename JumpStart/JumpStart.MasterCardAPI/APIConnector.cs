@@ -11,7 +11,7 @@ namespace JumpStart.MasterCardAPI
     {
 
 
-        public static bool PayFromCreditCard(Card card, int amount, CurrencyType currency, string description = "no description"){
+        private static bool PayFromCreditCard(Card card, int amount, CurrencyType currency, string description = "no description"){
             PaymentsApi.PublicApiKey = "sbpb_NGVlNjNlMjItMmNiZi00ODJlLThkOTEtOWFkN2E4MTMwMDc4";
             PaymentsApi.PrivateApiKey = "NvUHa1W/aHrK2OBmzolPSECXA0CgIBnhpaZMI2t2Bmx5YFFQL0ODSXAOkNtXTToq";
 
@@ -49,7 +49,7 @@ namespace JumpStart.MasterCardAPI
 
         enum CurrencyType
         {
-            USD = "USD"
+            USD = 0
         }
     }
 }

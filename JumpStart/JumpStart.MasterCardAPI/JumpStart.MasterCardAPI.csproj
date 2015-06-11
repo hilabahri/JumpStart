@@ -34,7 +34,7 @@
       <HintPath>..\..\..\..\..\Downloads\simplifycommerce-sdk-dotnet-1.2.0\simplifycommerce-sdk-dotnet-1.2.0\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SimplifySDK">
-      <HintPath>..\..\..\..\..\Downloads\simplifycommerce-sdk-dotnet-1.2.0\simplifycommerce-sdk-dotnet-1.2.0\SimplifySDK.dll</HintPath>
+      <HintPath>..\Externals\api\SimplifySDK.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
