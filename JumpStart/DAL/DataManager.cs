@@ -70,12 +70,12 @@ namespace DAL
 
         public List<Donated> GetAllDonatedUsers()
         {
-            return GetCollection<Donated>(DONATED_COLLECTION).Find(null).ToListAsync().Result;
+            return GetCollection<Donated>(DONATED_COLLECTION).Find(_ => true).ToListAsync().Result;
         }
 
         public List<Course> GetAllCourses()
         {
-            return GetCollection<Course>(COURSES_COLLECTION).Find(null).ToListAsync().Result;
+            return GetCollection<Course>(COURSES_COLLECTION).Find(_ => true).ToListAsync().Result;
         }
 
         public Donated GetDonatedDetails(string id)
@@ -127,6 +127,12 @@ namespace DAL
         {
             donorUser.Id = ObjectId.GenerateNewId().ToString();
             GetCollection<Donor>(DONORS_COLLECTION).InsertOneAsync(donorUser).Wait();
+        }
+
+        public void AddNewCourse(Course course)
+        {
+            course.CourseID = ObjectId.GenerateNewId().ToString();
+            GetCollection<Course>(COURSES_COLLECTION).InsertOneAsync(course).Wait();
         }
 
         public void AddNewFundRequestToDonated(string donatedId, FundRequest fundRequest)

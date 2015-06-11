@@ -38,9 +38,10 @@ namespace JumpStart.APILogics
                 metaData.Add("aaData", metaDataArr);
                 //JObject metaData = JObject.Parse("{aaData : [{ \"purpose\" : \"liad\", \"age\" : \"something\", \"living_place\" : \"some office\", \"collected\" : \"103$\", \"goal\" : \"105$\" }]}");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                Console.WriteLine(ex.StackTrace);
+                return new JObject();
             }
             return metaData;
         }

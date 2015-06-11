@@ -75,6 +75,10 @@
       <Project>{cfdf8b6b-4049-4eee-9e63-74a69a380168}</Project>
       <Name>DAL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\JumpStart.APILogics\JumpStart.APILogics.csproj">
+      <Project>{68593f16-23ec-4899-9bcf-d8d1ba935337}</Project>
+      <Name>JumpStart.APILogics</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JumpStart.MasterCardAPI\JumpStart.MasterCardAPI.csproj">
       <Project>{bc9e40ae-cce2-4ee8-be35-71708f686086}</Project>
       <Name>JumpStart.MasterCardAPI</Name>
