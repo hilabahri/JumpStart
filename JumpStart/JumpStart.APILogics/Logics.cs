@@ -56,12 +56,13 @@ namespace JumpStart.APILogics
                 {
                     if (tran.CourseID == courseID)
                     {
-                        sum++;
+                        sum+=tran.Amount;
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.StackTrace);
             }
             return sum;
         }
@@ -117,9 +118,10 @@ namespace JumpStart.APILogics
                 donatedAndFundDetails.Remove("dateOfBirth");
                 donatedAndFundDetails.Remove("fundRequests");
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                Console.WriteLine(ex.StackTrace);
+                return new JObject();
             }
 
             return donatedAndFundDetails;
