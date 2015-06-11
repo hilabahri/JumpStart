@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SimplifyCommerce.Payments;
-using System.Configuration;
 
 namespace JumpStart.MasterCardAPI
 {
@@ -13,9 +12,9 @@ namespace JumpStart.MasterCardAPI
     {
 
 
-        public static bool PayFromCreditCard(Card card, int amount, CurrencyType currency, string description = "no description"){
-            PaymentsApi.PublicApiKey = ConfigurationManager.AppSettings.Get("publicKey") ?? "sbpb_NGVlNjNlMjItMmNiZi00ODJlLThkOTEtOWFkN2E4MTMwMDc4";
-            PaymentsApi.PrivateApiKey = ConfigurationManager.AppSettings.Get("privateKey") ?? "NvUHa1W/aHrK2OBmzolPSECXA0CgIBnhpaZMI2t2Bmx5YFFQL0ODSXAOkNtXTToq";
+        private static bool PayFromCreditCard(Card card, int amount, CurrencyType currency, string description = "no description"){
+            PaymentsApi.PublicApiKey = "sbpb_NGVlNjNlMjItMmNiZi00ODJlLThkOTEtOWFkN2E4MTMwMDc4";
+            PaymentsApi.PrivateApiKey = "NvUHa1W/aHrK2OBmzolPSECXA0CgIBnhpaZMI2t2Bmx5YFFQL0ODSXAOkNtXTToq";
 
             PaymentsApi api = new PaymentsApi();
             Payment payment = new Payment()
@@ -51,7 +50,7 @@ namespace JumpStart.MasterCardAPI
 
         enum CurrencyType
         {
-            USD = "USD"
+            USD = 0
         }
     }
 }
