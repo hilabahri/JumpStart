@@ -15,20 +15,15 @@ namespace Core.Entities
         public int Apartment { get; set; }
     }
 
-    public class Donated
-    {
+    public class Donated : User
+    {        
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
 
-        public float Age { get; set; }
-
         public Address UserAddress { get; set; }
 
         public bool WantToBeExposed { get; set; }
-
-        public string FreeStory { get; set; }
-        
-
+       
     }
 }

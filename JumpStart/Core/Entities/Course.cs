@@ -10,7 +10,7 @@ namespace Core.Entities
     {
         public string CourseName { get; set; }
 
-        public int CourseID { get; set; }
+        public string CourseID { get; set; }
 
         public string CourseInfo { get; set; }
 
