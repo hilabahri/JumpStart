@@ -153,7 +153,7 @@ namespace JumpStart.APILogics
             {
                 if (DataManager.Instance.SignIn(userName, password, out donor))
                 {
-                    return new JObject(JsonConvert.SerializeObject(donor));
+                    return JObject.Parse(JsonConvert.SerializeObject(donor));
                 }
             }
             catch (Exception) { }
