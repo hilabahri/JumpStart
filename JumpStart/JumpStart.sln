@@ -1,7 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{CFDF8B6B-4049-4EEE-9E63-74A69A380168}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpStart.MasterCardAPI", "JumpStart.MasterCardAPI\JumpStart.MasterCardAPI.csproj", "{BC9E40AE-CCE2-4EE8-BE35-71708F686086}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,10 @@ Global
 		{CFDF8B6B-4049-4EEE-9E63-74A69A380168}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFDF8B6B-4049-4EEE-9E63-74A69A380168}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFDF8B6B-4049-4EEE-9E63-74A69A380168}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC9E40AE-CCE2-4EE8-BE35-71708F686086}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC9E40AE-CCE2-4EE8-BE35-71708F686086}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC9E40AE-CCE2-4EE8-BE35-71708F686086}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC9E40AE-CCE2-4EE8-BE35-71708F686086}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
