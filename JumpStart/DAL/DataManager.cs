@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Entities;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace DAL
 {
@@ -15,7 +16,12 @@ namespace DAL
         private static object _lock;
 
 
-        static  DataManager()
+        private const string DONATED_COLLECTION = "donated";
+        private const string COURSES_COLLECTION = "courses";
+        private const string DONORS_COLLECTION = "donors";
+        private const string TRANSACTIONS_COLLECTION = "transactions";
+
+        static DataManager()
         {
             _lock = new object();
         }
@@ -25,77 +31,73 @@ namespace DAL
 
         }
 
-        static DataManager Instance
+        public static DataManager Instance
         {
             get
             {
                 if (_instance != null)
                     return _instance;
 
-                lock(_lock)
+                lock (_lock)
                 {
                     return _instance ?? (_instance = new DataManager());
                 }
             }
         }
-        private const string ConnectionString = "mongodb://localhost:27012";
 
-        public enum UserFilters
+        public bool SignIn(string userName, string password, out Donated donatedUser)
         {
-            CITY,
-            AGE,
-            GENDER
+            var donatedCollection = GetCollection<Donated>(DONATED_COLLECTION);
+            donatedUser = GetCollection<Donated>(DONATED_COLLECTION).Find<Donated>(Builders<Donated>.Filter.And(
+                Builders<Donated>.Filter.Eq(donated => donated.UserName, userName),
+                Builders<Donated>.Filter.Eq(donated => donated.Password, password)
+                )).FirstOrDefaultAsync().Result;
+
+            return donatedUser == null ? false : true;
         }
 
-        public enum CourseFilters
+        public bool SignIn(string userName, string password, out Donor donatedUser)
         {
-            CITY,
-            PRICE,
-            TYPE,
-            START_DATE // In month.year
+            var donatedCollection = GetCollection<Donor>(DONORS_COLLECTION);
+            donatedUser = GetCollection<Donor>(DONORS_COLLECTION).Find<Donor>(Builders<Donor>.Filter.And(
+                Builders<Donor>.Filter.Eq(donated => donated.UserName, userName),
+                Builders<Donor>.Filter.Eq(donated => donated.Password, password)
+                )).FirstOrDefaultAsync().Result;
+
+            return donatedUser == null ? false : true;
         }
 
-        // Donated API
-
-        public bool SignIn(string userName, string Password, out Donated donatedUser)
-        {
-
-            throw new System.NotImplementedException();
-        }
-
-        public void AddNewDonatedUser(Donated donatedUser)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public List<Donated> GetDonatedUsersByFilters(List<Tuple<UserFilters,List<string>>> filtersAndValues)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public List<Donated> GetDonatedUsersByFilter(UserFilters filterType, List<string> filterValues)
-        {
-            throw new System.NotImplementedException();
-        }
 
         public List<Donated> GetAllDonatedUsers()
         {
-            throw new System.NotImplementedException();
+            return GetCollection<Donated>(DONATED_COLLECTION).Find(null).ToListAsync().Result;
+        }
+
+        public List<Course> GetAllCourses()
+        {
+            return GetCollection<Course>(COURSES_COLLECTION).Find(null).ToListAsync().Result;
         }
 
         public Donated GetDonatedDetails(string id)
         {
-            throw new System.NotImplementedException();
+            return GetCollection<Donated>(DONATED_COLLECTION).Find(Builders<Donated>.Filter.Eq(donated => donated.Id, id)).FirstOrDefaultAsync().Result;
         }
 
-        public void DonatedAddNewFundRequest(string donatedId, string courseId, List<DateTime> dateTimes)
+        public Donor GetDonorDetails(string id)
         {
-            throw new System.NotImplementedException();
+            return GetCollection<Donor>(DONORS_COLLECTION).Find(Builders<Donor>.Filter.Eq(donor => donor.Id, id)).FirstOrDefaultAsync().Result;
         }
+
+        public Course GetCourseDetails(string id)
+        {
+            return GetCollection<Course>(COURSES_COLLECTION).Find(Builders<Course>.Filter.Eq(course => course.CourseID, id)).FirstOrDefaultAsync().Result;
+        }
+
+
 
         public List<FundRequest> GetDonatedFundRequests(string donatedId)
         {
-            throw new System.NotImplementedException();
+            return GetAllDonatedUsers().SelectMany(donated => donated.FundRequests).ToList();
         }
 
         // Courses API
@@ -110,37 +112,53 @@ namespace DAL
             throw new System.NotImplementedException();
         }
 
-        public List<Course> GetAllCourses()
+
+        public List<Donated> GetDonatedUsersByFilters(List<Tuple<UserFilters, List<string>>> filtersAndValues)
         {
             throw new System.NotImplementedException();
         }
 
-        // DonorAPI
-
-        public bool SignIn(string userName, string Password, out Donor donatedUser)
+        public List<Donated> GetDonatedUsersByFilter(UserFilters filterType, List<string> filterValues)
         {
             throw new System.NotImplementedException();
         }
-
+       
         public void AddNewDonor(Donor donorUser)
         {
-            throw new System.NotImplementedException();
+            donorUser.Id = ObjectId.GenerateNewId().ToString();
+            GetCollection<Donor>(DONORS_COLLECTION).InsertOneAsync(donorUser).Wait();
         }
 
-        public void DonorNewTransaction(Transaction transaction)
+        public void AddNewFundRequestToDonated(string donatedId, FundRequest fundRequest)
         {
-            throw new System.NotImplementedException();
+            GetCollection<Donated>(DONATED_COLLECTION).UpdateOneAsync(Builders<Donated>.Filter.Eq(donated => donated.Id, donatedId),
+                Builders<Donated>.Update.AddToSet(donated => donated.FundRequests, fundRequest)).Wait();
         }
 
-        public void GetDonorTransactions(string donorId)
+        public void AddNewDonatedUser(Donated donatedUser)
         {
-            throw new System.NotImplementedException();
+            donatedUser.Id = ObjectId.GenerateNewId().ToString();
+            var donatedCollection = GetCollection<Donated>(DONATED_COLLECTION);
+            donatedCollection.InsertOneAsync(donatedUser).Wait();
         }
 
-        public Donor GetDonorDetails(string id)
+        public void AddNewTransaction(Transaction transaction)
         {
-            throw new System.NotImplementedException();
+            GetCollection<Transaction>(TRANSACTIONS_COLLECTION).InsertOneAsync(transaction).Wait();
         }
+
+        public List<Transaction> GetTransactionsByDonorId(string donorId)
+        {
+            return GetCollection<Transaction>(TRANSACTIONS_COLLECTION).
+                Find<Transaction>(Builders<Transaction>.Filter.Eq(transaction => transaction.DonorID, donorId)).ToListAsync().Result;
+        }
+
+        public List<Transaction> GetTransactionsByDonatedId(string donatedId)
+        {
+            return GetCollection<Transaction>(TRANSACTIONS_COLLECTION).
+                Find<Transaction>(Builders<Transaction>.Filter.Eq(transaction => transaction.DonatedID, donatedId)).ToListAsync().Result;
+        }
+
 
         // Global API
 
@@ -153,5 +171,28 @@ namespace DAL
             // TODO: return the money to the donor
         }
 
+
+        private IMongoCollection<T> GetCollection<T>(string collectionName)
+        {
+            var client = new MongoClient();
+            var db = client.GetDatabase("mastercard");
+            return db.GetCollection<T>(collectionName);
+        }
+    }
+
+
+    public enum UserFilters
+    {
+        CITY,
+        AGE,
+        GENDER
+    }
+
+    public enum CourseFilters
+    {
+        CITY,
+        PRICE,
+        TYPE,
+        START_DATE
     }
 }
