@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace Core.Entities
 
         [BsonElement("onlineMoney")]
         [JsonProperty("onlineMoney")]
+        [BsonRepresentation(BsonType.Int32)]
         public int OnlineMoney { get; set; }
     }
 }

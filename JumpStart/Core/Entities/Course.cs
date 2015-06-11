@@ -21,7 +21,7 @@ namespace Core.Entities
         public string CourseID { get; set; }
 
         [BsonElement("info")]
-        [JsonProperty("name")]
+        [JsonProperty("info")]
         public string CourseInfo { get; set; }
 
         [BsonElement("price")]
