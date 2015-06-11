@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\Downloads\simplifycommerce-sdk-dotnet-1.2.0\simplifycommerce-sdk-dotnet-1.2.0\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Externals\newtonsoft\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="SimplifySDK">
       <HintPath>..\Externals\api\SimplifySDK.dll</HintPath>
