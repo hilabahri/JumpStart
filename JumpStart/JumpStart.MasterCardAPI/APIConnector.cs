@@ -8,6 +8,7 @@ using System.Configuration;
 
 namespace JumpStart.MasterCardAPI
 {
+
     public static class APIConnector
     {
 
@@ -21,7 +22,7 @@ namespace JumpStart.MasterCardAPI
             {
                 Amount = amount,
                 Card = card,
-                Currency = currency.ToString(),
+                Currency = Enum.GetName(typeof(CurrencyType), currency),
                 Description = description
             };
 
