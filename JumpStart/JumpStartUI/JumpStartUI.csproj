@@ -160,6 +160,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\DonatedController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -244,6 +245,8 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Images\blue-user-icon.png" />
+    <Content Include="Images\logo.jpg" />
+    <Content Include="Images\slider-1.jpg" />
     <Content Include="Images\sort_asc.png" />
     <Content Include="Images\sort_asc_disabled.png" />
     <Content Include="Images\sort_both.png" />
@@ -259,7 +262,6 @@
     <Content Include="Images\icon-2.jpg" />
     <Content Include="Images\icon-3.jpg" />
     <Content Include="Images\line-1.gif" />
-    <Content Include="Images\logo.png" />
     <Content Include="Images\marker.png" />
     <Content Include="Images\page1-img1.png" />
     <Content Include="Images\page1-img2.png" />
@@ -280,7 +282,6 @@
     <Content Include="Images\page4-img5.jpg" />
     <Content Include="Images\page4-img6.jpg" />
     <Content Include="Images\pagination.png" />
-    <Content Include="Images\slider-1.jpg" />
     <Content Include="Images\transp.png" />
     <Content Include="js\Bilbo_400.font.js" />
     <Content Include="js\cufon-replace.js" />
@@ -294,6 +295,7 @@
     <Content Include="js\Table\jquery.js" />
     <Content Include="js\Table\shCore.js" />
     <Content Include="js\tms-0.4.1.js" />
+    <Content Include="Scripts\donatedPage\init.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -320,6 +322,7 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Donated\Index.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -335,10 +338,6 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{23025d2d-3c4c-4439-97fe-ef959a6e1cda}</Project>
       <Name>Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{cfdf8b6b-4049-4eee-9e63-74a69a380168}</Project>
-      <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

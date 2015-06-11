@@ -34,12 +34,12 @@
     <header>
         <div>
             <div>
-                <h1><a href="index.html"><img src="images/logo.png" alt=""></a></h1>
+                <h1><a href="index.html"><img src="images/logo.jpg" alt=""></a></h1>
                 <nav>
                     <ul class="menu">
                         <li class="current"><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
-                        <li><a href="services.html">Services</a></li>
+                        <li><a href="#" onclick="hehe()">Services</a></li>
                         <li><a href="products.html">Products</a></li>
                         <li><a href="contacts.html">Contacts</a></li>
                     </ul>
@@ -51,35 +51,16 @@
 
     <center>
         <ul class="items">
-            <li><img src="images/slider-1.jpg" alt="" /><div class="banner"></div></li>
+            <li><img src="images/slider-1.jpg" alt="" height="200"/><div class="banner"></div></li>
         </ul>
     </center>
 
-    @*STARTHERE*@
-
-    <table id="RequestsTable" class="display" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Purpose</th>
-                <th>Age</th>
-                <th>Living Place</th>
-                <th>Collected</th>
-                <th>Goal</th>
-            </tr>
-        </thead>
-
-        <tfoot>
-            <tr>
-                <th>Purpose</th>
-                <th>Age</th>
-                <th>Living Place</th>
-                <th>Collected</th>
-                <th>Goal</th>
-            </tr>
-        </tfoot>
-    </table>
-
     <script>
+        function hehe() {
+            $('#bodyContent').html('');
+            $('#bodyContent').html('<label>aaaa</label>');
+        }
+
         $(document).ready(function () {
             var requestsTable = $('#RequestsTable').dataTable({
                 "ajax": "Home/GetFundingRequestsMetaData",
@@ -112,18 +93,12 @@
                 }
             });
 
-            //$('#RequestsTable tbody').on('click', 'tr', function () {
-                
-            //    alert(requestsTable.row('.selected'));
-            //});
         });
         function rowClick(currentRow) {
-            alert(currentRow);
+         
         }
+
     </script>
-
-    @*ENDSHERE*@
-
 
     <!--==============================content================================-->
     <section id="content">
@@ -145,8 +120,27 @@
             </div>
             <div class="grid_12 box-2">
                 <div>
-                    <p class="text-3">Welcome to Our <span>Start-Up</span> Website!</p>
-                    <p class="text-4">Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse</p>
+                    <table id="RequestsTable" class="display" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Purpose</th>
+                                <th>Age</th>
+                                <th>Living Place</th>
+                                <th>Collected</th>
+                                <th>Goal</th>
+                            </tr>
+                        </thead>
+
+                        <tfoot>
+                            <tr>
+                                <th>Purpose</th>
+                                <th>Age</th>
+                                <th>Living Place</th>
+                                <th>Collected</th>
+                                <th>Goal</th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
             <div class="grid_8">
@@ -184,6 +178,8 @@
             </div>
             <div class="clear"></div>
         </div>
+
+
     </section>
     <!--==============================footer=================================-->
     <footer>

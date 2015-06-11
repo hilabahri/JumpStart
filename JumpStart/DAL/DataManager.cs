@@ -144,6 +144,7 @@ namespace DAL
 
         public void AddNewTransaction(Transaction transaction)
         {
+            transaction.TransactionID = ObjectId.GenerateNewId().ToString();
             GetCollection<Transaction>(TRANSACTIONS_COLLECTION).InsertOneAsync(transaction).Wait();
         }
 
