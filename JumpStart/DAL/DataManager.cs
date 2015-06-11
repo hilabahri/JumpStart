@@ -149,12 +149,14 @@ namespace DAL
 
         public List<Transaction> GetTransactionsByDonorId(string donorId)
         {
-            throw new System.NotImplementedException();
+            return GetCollection<Transaction>(TRANSACTIONS_COLLECTION).
+                Find<Transaction>(Builders<Transaction>.Filter.Eq(transaction => transaction.DonorID, donorId)).ToListAsync().Result;
         }
 
         public List<Transaction> GetTransactionsByDonatedId(string donatedId)
         {
-            throw new NotImplementedException();
+            return GetCollection<Transaction>(TRANSACTIONS_COLLECTION).
+                Find<Transaction>(Builders<Transaction>.Filter.Eq(transaction => transaction.DonatedID, donatedId)).ToListAsync().Result;
         }
 
 
