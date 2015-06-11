@@ -42,6 +42,10 @@ namespace Core.Entities
         [BsonElement("wantToBeExposed")]
         [JsonProperty("wabtToBeExposed")]
         public bool WantToBeExposed { get; set; }
+
+        [BsonElement("fundRequests")]
+        [JsonProperty("fundRequests")]
+        public List<FundRequest> FundRequests { get; set; }
        
     }
 }
