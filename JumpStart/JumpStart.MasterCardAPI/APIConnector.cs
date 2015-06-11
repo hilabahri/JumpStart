@@ -7,6 +7,7 @@ using SimplifyCommerce.Payments;
 using System.Net;
 using System.IO;
 using System.Runtime.Serialization;
+using System.Configuration;
 
 namespace JumpStart.MasterCardAPI
 {
@@ -16,8 +17,8 @@ namespace JumpStart.MasterCardAPI
 
 
         public static bool PayFromCreditCard(Card card, int amount, CurrencyType currency, string description = "no description"){
-            PaymentsApi.PublicApiKey = "sbpb_NGVlNjNlMjItMmNiZi00ODJlLThkOTEtOWFkN2E4MTMwMDc4";
-            PaymentsApi.PrivateApiKey = "NvUHa1W/aHrK2OBmzolPSECXA0CgIBnhpaZMI2t2Bmx5YFFQL0ODSXAOkNtXTToq";
+            PaymentsApi.PublicApiKey = ConfigurationManager.AppSettings.Get("PublicKey") ?? "sbpb_NGVlNjNlMjItMmNiZi00ODJlLThkOTEtOWFkN2E4MTMwMDc4";
+            PaymentsApi.PrivateApiKey = ConfigurationManager.AppSettings.Get("PrivateKey") ?? "NvUHa1W/aHrK2OBmzolPSECXA0CgIBnhpaZMI2t2Bmx5YFFQL0ODSXAOkNtXTToq";
 
             PaymentsApi api = new PaymentsApi();
             Payment payment = new Payment()
@@ -53,7 +54,7 @@ namespace JumpStart.MasterCardAPI
 
         public static bool CardIsNotLostOrStolen(string cardNumber)
         {
-            var request = (HttpWebRequest)WebRequest.Create("http://dmartin.org:8018/fraud/loststolen/v1/account-inquiry?Format=XML");
+            var request = (HttpWebRequest)WebRequest.Create(ConfigurationManager.AppSettings.Get("LostApi") ?? "http://dmartin.org:8018/fraud/loststolen/v1/account-inquiry?Format=XML");
 
             System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
             if (String.IsNullOrEmpty(cardNumber))
