@@ -31,6 +31,6 @@ namespace Core.Entities
 
         public TransactionStatus Status { get; set; }
 
-        public bool DonorWantToBeWxposed { get; set; }
+        public bool DonorWantToBeExposed { get; set; }
     }
 }
