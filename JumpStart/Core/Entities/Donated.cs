@@ -28,7 +28,7 @@ namespace Core.Entities
         public string IdentityCardNum { get; set; }
 
         [BsonElement("wantToBeExposed")]
-        [JsonProperty("wabtToBeExposed")]
+        [JsonProperty("wantToBeExposed")]
         public bool WantToBeExposed { get; set; }
 
         [BsonElement("fundRequests")]
