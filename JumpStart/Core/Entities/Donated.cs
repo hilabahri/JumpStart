@@ -35,10 +35,12 @@ namespace Core.Entities
         [JsonProperty("address")]
         public Address UserAddress { get; set; }
 
+        [BsonElement("identityCardNumber")]
+        [JsonProperty("identityCardNumber")]
         public string IdentityCardNum { get; set; }
 
-        [BsonElement("shouldBeExposed")]
-        [JsonProperty("shouldBeExposed")]
+        [BsonElement("wantToBeExposed")]
+        [JsonProperty("wabtToBeExposed")]
         public bool WantToBeExposed { get; set; }
        
     }
