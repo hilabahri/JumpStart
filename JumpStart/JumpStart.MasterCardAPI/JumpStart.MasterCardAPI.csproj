@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\Downloads\simplifycommerce-sdk-dotnet-1.2.0\simplifycommerce-sdk-dotnet-1.2.0\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SimplifySDK">
+      <HintPath>..\..\..\..\..\Downloads\simplifycommerce-sdk-dotnet-1.2.0\simplifycommerce-sdk-dotnet-1.2.0\SimplifySDK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIConnector.cs" />
-    <Compile Include="CreditCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
