@@ -30,7 +30,7 @@ namespace DAL
 
         }
 
-        static DataManager Instance
+        public static DataManager Instance
         {
             get
             {
