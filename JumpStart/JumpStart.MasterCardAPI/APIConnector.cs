@@ -14,11 +14,14 @@ namespace JumpStart.MasterCardAPI
 
     public static class APIConnector
     {
+        private static string publicKey = ConfigurationManager.AppSettings.Get("PublicKey") ?? "sbpb_NGVlNjNlMjItMmNiZi00ODJlLThkOTEtOWFkN2E4MTMwMDc4";
+        private static string privateKey = ConfigurationManager.AppSettings.Get("PrivateKey") ?? "NvUHa1W/aHrK2OBmzolPSECXA0CgIBnhpaZMI2t2Bmx5YFFQL0ODSXAOkNtXTToq";
 
 
-        public static bool PayFromCreditCard(Card card, int amount, CurrencyType currency, string description = "no description"){
-            PaymentsApi.PublicApiKey = ConfigurationManager.AppSettings.Get("PublicKey") ?? "sbpb_NGVlNjNlMjItMmNiZi00ODJlLThkOTEtOWFkN2E4MTMwMDc4";
-            PaymentsApi.PrivateApiKey = ConfigurationManager.AppSettings.Get("PrivateKey") ?? "NvUHa1W/aHrK2OBmzolPSECXA0CgIBnhpaZMI2t2Bmx5YFFQL0ODSXAOkNtXTToq";
+        public static bool PayFromCreditCard(Card card, int amount, CurrencyType currency, string description = "no description", string extPublicKey = "", string extPrivateKey = "")
+        {
+            PaymentsApi.PublicApiKey = extPublicKey ?? publicKey;
+            PaymentsApi.PrivateApiKey = extPrivateKey ?? privateKey;
 
             PaymentsApi api = new PaymentsApi();
             Payment payment = new Payment()
