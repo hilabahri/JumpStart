@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Entities;
 using MongoDB.Driver;
+using MongoDB.Bson;
 
 namespace DAL
 {
@@ -14,6 +15,8 @@ namespace DAL
         private static DataManager _instance;
         private static object _lock;
 
+
+        private const string DONATED_COLLECTION = "donated";
 
         static  DataManager()
         {
@@ -38,7 +41,6 @@ namespace DAL
                 }
             }
         }
-        private const string ConnectionString = "mongodb://localhost:27012";
 
         public enum UserFilters
         {
@@ -57,15 +59,23 @@ namespace DAL
 
         // Donated API
 
-        public bool SignIn(string userName, string Password, out Donated donatedUser)
+        public bool SignIn(string userName, string password, out Donated donatedUser)
         {
+            bool success = false;
+            var donatedCollection = GetCollection<Donated>(DONATED_COLLECTION);
+            donatedUser = GetCollection<Donated>(DONATED_COLLECTION).Find<Donated>(Builders<Donated>.Filter.And(
+                Builders<Donated>.Filter.Eq(donated => donated.UserName, userName),
+                Builders<Donated>.Filter.Eq(donated => donated.Password, password)
+                )).FirstOrDefaultAsync().Result;
 
-            throw new System.NotImplementedException();
+            return donatedUser == null ? false : true;
         }
 
         public void AddNewDonatedUser(Donated donatedUser)
         {
-            throw new System.NotImplementedException();
+            donatedUser.Id = ObjectId.GenerateNewId().ToString();
+            var donatedCollection = GetCollection<Donated>(DONATED_COLLECTION);
+            donatedCollection.InsertOneAsync(donatedUser).Wait();
         }
 
         public List<Donated> GetDonatedUsersByFilters(List<Tuple<UserFilters,List<string>>> filtersAndValues)
@@ -80,17 +90,18 @@ namespace DAL
 
         public List<Donated> GetAllDonatedUsers()
         {
-            throw new System.NotImplementedException();
+            return GetCollection<Donated>(DONATED_COLLECTION).Find(null).ToListAsync().Result;
         }
 
         public Donated GetDonatedDetails(string id)
         {
-            throw new System.NotImplementedException();
+            return GetCollection<Donated>(DONATED_COLLECTION).Find(Builders<Donated>.Filter.Eq(donated => donated.Id, id)).FirstOrDefaultAsync().Result;
         }
 
-        public void DonatedAddNewFundRequest(string donatedId, string courseId, List<DateTime> dateTimes)
+        public void DonatedAddNewFundRequest(string donatedId, FundRequest fundRequest)
         {
-            throw new System.NotImplementedException();
+            GetCollection<Donated>(DONATED_COLLECTION).UpdateOneAsync(Builders<Donated>.Filter.Eq(donated => donated.Id, donatedId),
+                Builders<Donated>.Update.AddToSet(donated => donated.FundRequests, fundRequest)).Wait();
         }
 
         public List<FundRequest> GetDonatedFundRequests(string donatedId)
@@ -153,5 +164,12 @@ namespace DAL
             // TODO: return the money to the donor
         }
 
+
+        private IMongoCollection<T> GetCollection<T>(string collectionName)
+        {
+            var client = new MongoClient();
+            var db = client.GetDatabase("mastercard");
+            return  db.GetCollection<T>(collectionName);
+        }
     }
 }
