@@ -28,110 +28,24 @@ namespace JumpStartUI.Controllers
             return Logics.GetFundingRequestsMetaData();
         }
 
-        private List<CourseInstance> GetFundRequestCourseOptionalDates(string donatedID, string courseID)
-        {
-            List<FundRequest> funds;
-            try
-            {
-                funds = DataManager.Instance.GetDonatedFundRequests(donatedID);
-                foreach (FundRequest fr in funds)
-                {
-                    if (fr.CourseID == courseID)
-                    {
-                        return fr.OptionalCourseInstances;
-                    }
-                }
-            }
-            catch (Exception)
-            {}
-            
-            return null;
-        }
-
         public JObject GetFundingRequestData(string donatedID, string courseID)
         {
-            JObject donatedAndFundDetails = new JObject();
-
-            try
-            {
-                Donated donated = DataManager.Instance.GetDonatedDetails(donatedID);
-                donatedAndFundDetails = new JObject(JsonConvert.SerializeObject(donated));
-
-                if (!donated.WantToBeExposed)
-                {
-                    donatedAndFundDetails.Remove("firstName");
-                    donatedAndFundDetails.Remove("lastName");
-                }
-
-                donatedAndFundDetails.Add("age", (DateTime.Now.Year - donated.DateOfBirth.Year).ToString());
-                donatedAndFundDetails.Add("course", DataManager.Instance.GetCourseDetails(courseID).CourseName);
-                JObject funds = new JObject(JsonConvert.SerializeObject(donatedAndFundDetails.GetValue("fundRequests")));
-
-                donatedAndFundDetails.Add("");
-                donatedAndFundDetails.Add("collectedAmount", GetCollectedAmountForDonatedCourse(donatedID, courseID).ToString() + "$");
-                donatedAndFundDetails.Add("goalAmount", DataManager.Instance.GetCourseDetails(courseID).CoursePrice.ToString() + "$");
-
-                // Remove the unneccasery details
-                donatedAndFundDetails.Remove("userName");
-                donatedAndFundDetails.Remove("password");
-                donatedAndFundDetails.Remove("email");
-                donatedAndFundDetails.Remove("identityCardNumber");
-                donatedAndFundDetails.Remove("dateOfBirth");
-                donatedAndFundDetails.Remove("fundRequests");
-            }
-            catch(Exception)
-            {
-                return null;
-            }
-            
-            return donatedAndFundDetails;
+            return Logics.GetFundingRequestData(donatedID, courseID);
         }
 
         public JObject DonatedSignIn(string userName, string password)
         {
-            Donated donated = new Donated();
-            try
-            {
-                if (DataManager.Instance.SignIn(userName, password, out donated))
-                {
-                    return new JObject(JsonConvert.SerializeObject(donated));
-                }
-            }
-            catch (Exception) { }          
-            return null;
+            return Logics.DonatedSignIn(userName, password);
         }
 
         public JObject DonorSignIn(string userName, string password)
         {
-            Donor donor = new Donor();
-            try
-            {
-                if (DataManager.Instance.SignIn(userName, password, out donor))
-                {
-                    return new JObject(JsonConvert.SerializeObject(donor));
-                }
-            }
-            catch (Exception) { }
-            return null;
+            return Logics.DonorSignIn( userName, password);
         }
 
         public JObject GetDonatedDetails(string donatedID)
         {
-            JObject donatedAndFundDetails = new JObject();
-
-            try
-            {
-                Donated donated = DataManager.Instance.GetDonatedDetails(donatedID);
-                donatedAndFundDetails = new JObject(JsonConvert.SerializeObject(donated));
-                donatedAndFundDetails.Remove("userName");
-                donatedAndFundDetails.Remove("password");
-
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            return donatedAndFundDetails;
+            return Logics.GetDonatedDetails(donatedID);
         }
 
 
@@ -145,7 +59,7 @@ namespace JumpStartUI.Controllers
          {
              //TODO
              return false;
-         }*/
+         }
 
         public JObject GetDonatedPendingCourseRequests(string donatedID)
         {
@@ -202,20 +116,22 @@ namespace JumpStartUI.Controllers
                 return null;
             }
             return pendingCourses;
-        }
+        }*/
 
         public JObject GetDonorDetails(string donorID)
         {
-            return null;
+            return Logics.GetDonorDetails(donorID);
         }
 
         public JObject GetDonorTransactions(string donorID)
         {
-            return null;
+            return Logics.GetDonorTransactions(donorID);
         }
 
-        public void NewFundRequest()
+        public void NewFundRequest(string donatedId, string courseId)
         {
+           Logics.NewFundRequest(donatedId, courseId);
+
         }
 
         public void NewTransaction()
@@ -230,7 +146,7 @@ namespace JumpStartUI.Controllers
 
         public JObject GetCoursesDetails(string courseID)
         {
-            return null;
+            return Logics.GetCoursesDetails(courseID);
         }
     }
 }
