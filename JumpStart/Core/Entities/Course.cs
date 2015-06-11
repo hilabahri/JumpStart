@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
+    
     public class Course
     {
         [BsonElement("name")]
@@ -29,11 +30,9 @@ namespace Core.Entities
         [BsonRepresentation(BsonType.Double)]
         public double CoursePrice { get; set; }
 
-        [BsonElement("dates")]
-        [JsonProperty("dates")]
-        [BsonRepresentation(BsonType.String)]
-        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-        public List<DateTime> Dates { get; set; }
+        [BsonElement("instances")]
+        [JsonProperty("instances")]
+        public List<CourseInstance> Instances { get; set; }
 
         [BsonElement("lengthInWeeks")]
         [JsonProperty("lengthInWeeks")]
