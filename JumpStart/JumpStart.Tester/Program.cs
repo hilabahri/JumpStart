@@ -12,7 +12,7 @@ namespace JumpStart.Tester
         {
             //var result = MasterCardAPI.APIConnector.PayFromCreditCard(MasterCardAPI.APIConnector.CreateCreditCard("123",10,16,"5555555555554444"),1000, MasterCardAPI.CurrencyType.USD);
             //MasterCardAPI.APIConnector.CardIsNotLostOrStolen("343434343434343");
-            MasterCardAPI.APIConnector.MakeRepowerTransaction();
+            MasterCardAPI.APIConnector.MakeRepowerTransaction(5184680430000006, 100);
             Console.ReadKey();
         }
     }
