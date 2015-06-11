@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace JumpStart.MasterCardAPI
 {
-    public static class APIConnector
+    class CreditCard
     {
+        private string _id { get; }
+
     }
 }
