@@ -88,20 +88,20 @@ namespace JumpStart.MasterCardAPI
             return true;
         }
 
-        public static bool MakeRepowerTransaction()
+        public static bool MakeRepowerTransaction(long cardNumber, long value, string currency = "840")
         {
             RepowerRequest repowerRequest = new RepowerRequest();
             repowerRequest.TransactionReference = getRepowerReferenceNumber();
             repowerRequest.CardNumber = 5184680430000006;
             repowerRequest.TransactionAmount.Value = 30000;
             repowerRequest.TransactionAmount.Currency = "840";
-            repowerRequest.LocalDate = "1230";
-            repowerRequest.LocalTime = "092435";
+            repowerRequest.LocalDate = DateTime.Now.ToString("HHMMSS");
+            repowerRequest.LocalTime = DateTime.Now.ToString("MMDD");
             repowerRequest.Channel = "W";
             repowerRequest.ICA = "009674";
             repowerRequest.ProcessorId = 9000000442;
             repowerRequest.RoutingAndTransitNumber = 990442082;
-            repowerRequest.MerchantType = 6532;
+            repowerRequest.MerchantType = 6533;
             repowerRequest.CardAcceptor.Name = "Prepaid Load Store";
             repowerRequest.CardAcceptor.City = "St Charles";
             repowerRequest.CardAcceptor.State = "MO";
