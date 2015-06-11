@@ -7,7 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpStart.MasterCardAPI", "JumpStart.MasterCardAPI\JumpStart.MasterCardAPI.csproj", "{BC9E40AE-CCE2-4EE8-BE35-71708F686086}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpStartUI", "JumpStartUI\JumpStartUI.csproj", "{D4DEAAAB-7826-4698-8912-3BA6BC54264A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ext", "ext", "{2DB81383-6472-4EC3-98C0-9B626D3BE9E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "externals", "externals", "{42384AC5-AAAD-44C8-8E34-4221DAC95928}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +25,6 @@ Global
 		{BC9E40AE-CCE2-4EE8-BE35-71708F686086}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC9E40AE-CCE2-4EE8-BE35-71708F686086}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC9E40AE-CCE2-4EE8-BE35-71708F686086}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4DEAAAB-7826-4698-8912-3BA6BC54264A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4DEAAAB-7826-4698-8912-3BA6BC54264A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4DEAAAB-7826-4698-8912-3BA6BC54264A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4DEAAAB-7826-4698-8912-3BA6BC54264A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
