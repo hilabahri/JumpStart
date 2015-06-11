@@ -16,11 +16,6 @@ namespace Core.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string CourseID { get; set; }
 
-        [BsonElement("courseId")]
-        [JsonProperty("courseId")]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string DonatedID { get; set; }
-
         [BsonElement("optionalDates")]
         [JsonProperty("optionalDates")]
         [BsonRepresentation(BsonType.String)]

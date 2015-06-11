@@ -40,5 +40,9 @@ namespace Core.Entities
         [BsonRepresentation(BsonType.String)]
         [JsonConverter(typeof(StringEnumConverter))]
         public Gender Gender { get; set; }
+
+        [BsonElement("fundRequests")]
+        [JsonProperty("fundRequests")]
+        public List<FundRequest> FundRequests { get; set; }
     }
 }
