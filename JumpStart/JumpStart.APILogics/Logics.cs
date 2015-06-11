@@ -167,7 +167,7 @@ namespace JumpStart.APILogics
             try
             {
                 Donated donated = DataManager.Instance.GetDonatedDetails(donatedID);
-                donatedAndFundDetails = new JObject(JsonConvert.SerializeObject(donated));
+                donatedAndFundDetails = JObject.Parse(JsonConvert.SerializeObject(donated));
                 donatedAndFundDetails.Remove("userName");
                 donatedAndFundDetails.Remove("password");
 
@@ -255,7 +255,7 @@ namespace JumpStart.APILogics
             try
             {
                 donor = DataManager.Instance.GetDonorDetails(donorID);
-                JObject donorObj = new JObject(JsonConvert.SerializeObject(donor));
+                JObject donorObj = JObject.Parse(JsonConvert.SerializeObject(donor));
                 donorObj.Remove("userName");
                 donorObj.Remove("password");
                 return donorObj;
@@ -270,7 +270,7 @@ namespace JumpStart.APILogics
             try
             {
                 donorTransactions = DataManager.Instance.GetTransactionsByDonorId(donorID);
-                JObject donorTransactionsObj = new JObject(JsonConvert.SerializeObject(donorTransactions));
+                JObject donorTransactionsObj = JObject.Parse(JsonConvert.SerializeObject(donorTransactions));
                 return donorTransactionsObj;
             }
             catch (Exception) { }
@@ -304,7 +304,7 @@ namespace JumpStart.APILogics
         {
             try
             {
-                return new JObject(JsonConvert.SerializeObject(DataManager.Instance.GetCourseDetails(courseID)));
+                return JObject.Parse(JsonConvert.SerializeObject(DataManager.Instance.GetCourseDetails(courseID)));
             }
             catch (Exception) { }
 
