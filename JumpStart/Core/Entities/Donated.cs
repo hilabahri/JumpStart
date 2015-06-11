@@ -22,7 +22,7 @@ namespace Core.Entities
     }
 
     public class Donated : User
-    {
+    {        
         [BsonElement("firstName")]
         [JsonProperty("firstName")]
         public string FirstName { get; set; }
@@ -34,6 +34,8 @@ namespace Core.Entities
         [BsonElement("address")]
         [JsonProperty("address")]
         public Address UserAddress { get; set; }
+
+        public string IdentityCardNum { get; set; }
 
         [BsonElement("shouldBeExposed")]
         [JsonProperty("shouldBeExposed")]
