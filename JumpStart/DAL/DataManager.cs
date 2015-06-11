@@ -4,11 +4,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Entities;
+using MongoDB.Driver;
 
 namespace DAL
 {
     public class DataManager
     {
+
+        private static DataManager _instance;
+        private static object _lock;
+
+
+        static  DataManager()
+        {
+            _lock = new object();
+        }
+
+        private DataManager()
+        {
+
+        }
+
+        static DataManager Instance
+        {
+            get
+            {
+                if (_instance != null)
+                    return _instance;
+
+                lock(_lock)
+                {
+                    return _instance ?? (_instance = new DataManager());
+                }
+            }
+        }
+        private const string ConnectionString = "mongodb://localhost:27012";
+
         public enum UserFilters
         {
             CITY,
@@ -28,6 +59,7 @@ namespace DAL
 
         public bool SignIn(string userName, string Password, out Donated donatedUser)
         {
+
             throw new System.NotImplementedException();
         }
 
