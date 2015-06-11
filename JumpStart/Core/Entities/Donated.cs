@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,23 +11,41 @@ namespace Core.Entities
 
     public class Address
     {
+        [BsonElement("city")]
+        [JsonProperty("city")]
         public string City { get; set; }
+
+        [BsonElement("street")]
+        [JsonProperty("street")]
         public string Street { get; set; }
-        public int Num { get; set; }
-        public int Apartment { get; set; }
+
     }
 
     public class Donated : User
     {        
+        [BsonElement("firstName")]
+        [JsonProperty("firstName")]
         public string FirstName { get; set; }
 
+        [BsonElement("lastName")]
+        [JsonProperty("lastName")]
         public string LastName { get; set; }
 
-        public string IdentityCardNum { get; set; }
-
+        [BsonElement("address")]
+        [JsonProperty("address")]
         public Address UserAddress { get; set; }
 
+        [BsonElement("identityCardNumber")]
+        [JsonProperty("identityCardNumber")]
+        public string IdentityCardNum { get; set; }
+
+        [BsonElement("wantToBeExposed")]
+        [JsonProperty("wabtToBeExposed")]
         public bool WantToBeExposed { get; set; }
+
+        [BsonElement("fundRequests")]
+        [JsonProperty("fundRequests")]
+        public List<FundRequest> FundRequests { get; set; }
        
     }
 }
