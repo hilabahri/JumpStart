@@ -12,5 +12,6 @@ namespace Core.Entities
 
         public string LastName { get; set; }
 
+        public int OnlineMoney { get; set; }
     }
 }
