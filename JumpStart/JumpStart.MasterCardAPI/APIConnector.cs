@@ -83,11 +83,6 @@ namespace JumpStart.MasterCardAPI
             return true;
         }
 
-        private static void Serialize(Stream output, object input)
-        {
-            var ser = new DataContractSerializer(input.GetType());
-            ser.WriteObject(output, input);
-        }
 
     }
 }
