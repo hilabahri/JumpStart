@@ -54,8 +54,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Address.cs" />
     <Compile Include="Entities\Association.cs" />
     <Compile Include="Entities\Course.cs" />
+    <Compile Include="Entities\CourseInstance.cs" />
     <Compile Include="Entities\Donated.cs" />
     <Compile Include="Entities\Donor.cs" />
     <Compile Include="Entities\Gender.cs" />

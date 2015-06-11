@@ -16,10 +16,8 @@ namespace Core.Entities
         [BsonRepresentation(BsonType.ObjectId)]
         public string CourseID { get; set; }
 
-        [BsonElement("optionalDates")]
-        [JsonProperty("optionalDates")]
-        [BsonRepresentation(BsonType.String)]
-        [BsonDateTimeOptions(Kind = DateTimeKind.Utc)]
-        public List<DateTime> OptionalDates { get; set; }
+        [BsonElement("optionalCourseInstances")]
+        [JsonProperty("optionalCourseInstances")]
+        public List<CourseInstance> OptionalCourseInstances { get; set; }
     }
 }
