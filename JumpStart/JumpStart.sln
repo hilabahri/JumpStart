@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpStart.Tester", "JumpSta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{23025D2D-3C4C-4439-97FE-EF959A6E1CDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JumpStart.APILogics", "JumpStart.APILogics\JumpStart.APILogics.csproj", "{68593F16-23EC-4899-9BCF-D8D1BA935337}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{23025D2D-3C4C-4439-97FE-EF959A6E1CDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23025D2D-3C4C-4439-97FE-EF959A6E1CDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23025D2D-3C4C-4439-97FE-EF959A6E1CDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68593F16-23EC-4899-9BCF-D8D1BA935337}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68593F16-23EC-4899-9BCF-D8D1BA935337}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68593F16-23EC-4899-9BCF-D8D1BA935337}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68593F16-23EC-4899-9BCF-D8D1BA935337}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
