@@ -1,8 +1,10 @@
 ﻿using Core.Entities;
 using DAL;
 using JumpStart.APILogics;
+using JumpStart.MasterCardAPI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SimplifyCommerce.Payments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -134,14 +136,9 @@ namespace JumpStartUI.Controllers
 
         }
 
-        public void NewTransaction()
+        public void NewTransaction(string donatorId, string courseId, string donatedId, long cardNumber, long value)
         {
-            // Use the mastercard API 
-        }
-
-        public void DonatedTransactionForItsFundRequest()
-        {
-            // Use the mastercard API
+            Logics.NewTransaction(donatorId, courseId, donatedId, cardNumber, value);
         }
 
         public JObject GetCoursesDetails(string courseID)

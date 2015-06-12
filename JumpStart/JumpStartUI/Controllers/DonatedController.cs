@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using JumpStart.APILogics;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -20,20 +21,7 @@ namespace JumpStartUI.Controllers
 
         public JObject AcquireData()
         {
-            return new JObject{
-                {"aaData", new JArray{
-                    new JObject{
-                        {"Name", "bla"},{"Date", "12-32-12"},{"Collected", 12},{"Goal", 56}
-                     },
-                    new JObject{
-                        {"Name", "bla2"},{"Date", "12-32-12"},{"Collected", 78},{"Goal", 56}
-                     },
-                                         new JObject{
-                        {"Name", "bla3"},{"Date", ""},{"Collected", 12},{"Goal", 56}
-                     }
-                }
-                }                
-            };
+            return Logics.GetDonatedCoursesRequestsDetails("5579f9fb0529214ae03e3701");            
         }
 
     }

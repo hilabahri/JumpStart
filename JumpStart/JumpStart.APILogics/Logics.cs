@@ -1,9 +1,11 @@
 ﻿using Core.Entities;
 using DAL;
+using JumpStart.MasterCardAPI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -56,7 +58,7 @@ namespace JumpStart.APILogics
                 {
                     if (tran.CourseID == courseID)
                     {
-                        sum+=tran.Amount;
+                        sum += tran.Amount;
                     }
                 }
             }
@@ -115,8 +117,8 @@ namespace JumpStart.APILogics
                 }
 
                 donatedAndFundDetails.Add("age", (DateTime.Now.Year - donated.DateOfBirth.Year).ToString());
-                donatedAndFundDetails.Add("course", DataManager.Instance.GetCourseDetails(courseID).CourseName);               
-                donatedAndFundDetails.Add("course_instances",  GetFundRequestCourseOptionalDates(donatedID, courseID));
+                donatedAndFundDetails.Add("course", DataManager.Instance.GetCourseDetails(courseID).CourseName);
+                donatedAndFundDetails.Add("course_instances", GetFundRequestCourseOptionalDates(donatedID, courseID));
                 donatedAndFundDetails.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, courseID).ToString() + "$");
                 donatedAndFundDetails.Add("goalAmount", DataManager.Instance.GetCourseDetails(courseID).CoursePrice.ToString() + "$");
 
@@ -148,7 +150,8 @@ namespace JumpStart.APILogics
                     result = JObject.Parse(JsonConvert.SerializeObject(donated));
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.StackTrace);
             }
             return result;
@@ -189,6 +192,46 @@ namespace JumpStart.APILogics
                 return null;
             }
             return donatedAndFundDetails;
+        }
+
+        public static JObject GetDonatedCoursesRequestsDetails(string donatedID)
+        {
+            JObject details = new JObject();
+            try
+            {
+                List<FundRequest> fundRequests = DataManager.Instance.GetDonatedFundRequests(donatedID);
+                JArray coursesArr = new JArray();
+                foreach (FundRequest fr in fundRequests)
+                {
+                    foreach (CourseInstance ci in fr.OptionalCourseInstances)
+                    {
+                        JObject cr = new JObject();
+                        cr.Add("name", DataManager.Instance.GetCourseDetails(fr.CourseID).CourseName);
+                        ci.Dates.Sort();
+                        while (ci.Dates.First() < DateTime.Now)
+                        {
+                            ci.Dates.RemoveAt(0);
+                        }
+
+                        cr.Add("date", ci.Dates.First().ToString());
+                        cr.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, fr.CourseID));
+                        cr.Add("goalAmount", DataManager.Instance.GetCourseDetails(fr.CourseID).CoursePrice);
+                        cr.Add("city", ci.City);
+                        coursesArr.Add(cr);
+                    }
+
+                }
+
+                details.Add("aaData", coursesArr);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            return details;
+
+
         }
 
 
@@ -261,6 +304,8 @@ namespace JumpStart.APILogics
             return pendingCourses;
         }*/
 
+        // (Course) Name, Date, Collected, Goal.
+
         public static JObject GetDonorDetails(string donorID)
         {
             Donor donor = new Donor();
@@ -304,39 +349,36 @@ namespace JumpStart.APILogics
 
                 DataManager.Instance.AddNewFundRequestToDonated(donatedId, fund);
             }
-           catch (Exception ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-           }
-
-        }
-
-        public static bool NewTransaction(string donorID, string donatedId, string courseId, int amount, DateTime endTime, bool donorToBeExposed)
-        {
-            // Use the mastercard API 
-
-            try
-            {
-                // Create a transaction object
-
-                // Get the money using api
-
-                // APIConnector.PayFromCreditCard(card)
-
-                // Check if it is a final transaction for the fund request
-
-                // if it is - then 
-
-            }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
-                return false;
             }
 
-            return true;
+        }
+
+        public static void NewTransaction(string donatorId, string courseId, string donatedId, long cardNumber, long value)
+        {
+            var donator = DataManager.Instance.GetDonorDetails(donatorId);
+            int leftToPay = (int)(value - donator.OnlineMoney);
+            if (leftToPay <= 0)
+            {
+                return;
+            }
+
+            DataManager.Instance.RemoveFundsFromDonor(donatorId, (int)(value - leftToPay));
+            APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, cardNumber.ToString()), leftToPay, CurrencyType.USD);
+            DataManager.Instance.AddNewTransaction(new Transaction() { Amount = (int)value, CourseID = courseId, Status = TransactionStatus.PENDING, CreationDate = DateTime.Now, DonatedID = donatedId, DonorID = donatorId, DonorWantToBeExposed = true, EndDate = DateTime.Now.AddDays(30) });
+            if (DataManager.Instance.GetNeededMoney(courseId) <= GetCollectedAmountForDonatedCourse(donatedId, courseId))
+            {
+                //if have to pay to bank
+                if (ConfigurationManager.AppSettings["isCourseGetBank"] == "1")
+                    APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, ConfigurationManager.AppSettings["ourCard"]), leftToPay, CurrencyType.USD, "cool pay", ConfigurationManager.AppSettings["mechentPublic"], ConfigurationManager.AppSettings["mechentPrivate"]);
+                else
+                    APIConnector.MakeRepowerTransaction(long.Parse(ConfigurationManager.AppSettings["merchantPrePaid"]), value);
+            }
 
         }
+
 
         public static void DonatedTransactionForItsFundRequest()
         {
