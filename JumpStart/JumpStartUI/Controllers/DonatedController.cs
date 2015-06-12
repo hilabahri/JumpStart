@@ -3,6 +3,7 @@ using JumpStart.APILogics;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -21,7 +22,8 @@ namespace JumpStartUI.Controllers
 
         public JObject AcquireData()
         {
-            return Logics.GetDonatedCoursesRequestsDetails("5579f9fb0529214ae03e3701");            
+            string donatedId = ConfigurationManager.AppSettings["donatedId"] ?? "5579f9fb0529214ae03e3701";
+            return Logics.GetDonatedCoursesRequestsDetails(donatedId);            
         }
 
     }
