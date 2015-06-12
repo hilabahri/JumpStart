@@ -100,6 +100,11 @@ namespace DAL
             return GetAllDonatedUsers().SelectMany(donated => donated.FundRequests).ToList();
         }
 
+        //public Donated GetDonatedFundRequestByID(string fundId)
+        //{
+        //    return GetCollection<Donated>(DONATED_COLLECTION).Find(Builders<Donated>.Filter.Eq(donated => donated.FundRequests.Id, id)).FirstOrDefaultAsync().Result;
+        //}
+
         // Courses API
 
         public List<Course> GetCoursesByFilters(List<Tuple<CourseFilters, List<string>>> filtersAndValues)
@@ -146,6 +151,17 @@ namespace DAL
             donatedUser.Id = ObjectId.GenerateNewId().ToString();
             var donatedCollection = GetCollection<Donated>(DONATED_COLLECTION);
             donatedCollection.InsertOneAsync(donatedUser).Wait();
+        }
+
+        public void RemoveFundsFromDonor(string donorId, int fundsToRemove)
+        {
+            //TODO remove funds
+            //return GetCollection<Donor>(DONORS_COLLECTION).UpdateOneAsync<Donor>(Builders<Transaction>.Filter.Eq(tr => tr.DonorID, donorId),Builders<Transaction>.Update. );
+        }
+
+        public int GetNeededMoney(string courseid)
+        {
+            return (int)GetCourseDetails(courseid).CoursePrice;
         }
 
         public void AddNewTransaction(Transaction transaction)
