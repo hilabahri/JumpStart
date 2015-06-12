@@ -251,6 +251,16 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="Images\blue-user-icon.png" />
+    <Content Include="Images\croud_fund1.jpg" />
+    <Content Include="Images\croud_fund2.jpg" />
+    <Content Include="Images\croud_fund3.jpg" />
+    <Content Include="Images\croud_fund4.jpg" />
+    <Content Include="Images\croud_fund5.jpg" />
+    <Content Include="Images\direct_contact1.jpg" />
+    <Content Include="Images\direct_contact2.jpg" />
+    <Content Include="Images\direct_contact3.jpg" />
+    <Content Include="Images\little_push1.jpg" />
+    <Content Include="Images\little_push2.jpg" />
     <Content Include="Images\logo.jpg" />
     <Content Include="Images\slider-1.jpg" />
     <Content Include="Images\sort_asc.png" />
