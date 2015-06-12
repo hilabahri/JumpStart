@@ -82,8 +82,8 @@
                     { "data": "city" },
                     { "data": "collectedAmount" },
                     { "data": "goalAmount" },
-                    { "data": "donaterID" },
-                    { "data": "courseID" }
+                    { "data": "donaterID"},
+                    {"data": "courseID"}
                 ]
             }).ajaxComplete(function () {
                 var table = document.getElementById("RequestsTable");
@@ -113,13 +113,36 @@
                     src: '#test-form'
                 },
                 type: 'inline'
-
-                // You may add options here, they're exactly the same as for $.fn.magnificPopup call
-                // Note that some settings that rely on click event (like disableOn or midClick) will not work here
             }, 0);
+
+            var data = {};
+            data.donatedID = currentRow[5];
+            data.courseID = currentRow[6];
+
+            $.ajax({
+                type: "POST",
+                url: "Home/GetFundingRequestData",
+                data: data,
+                //success: success,
+                datatype: "json"
+            }).success(function (data) {
+                data = JSON.parse(data);
+                var firstName = data.firstName;
+                var lastName = data.lastName;
+                if (firstName == undefined)
+                {
+                    firstName = '****';
+                    lastName = '****';
+                }
+                $('#test-form').html('<center><b>First name:</b> ' + firstName + ' <b>Last name:</b> ' + lastName + ' <b>City:</b> ' + data.address.city + '<br/><b>Description:</b> ' + data.description + '<br/><b>Gender:</b> ' + data.gender + ' <b>Age:</b> ' + data.age + '<br/><b>Course:</b> ' + data.course + "<br/><b>Collected Amount:</b> " + data.collectedAmount + " <b>Goal Amount:</b> " + data.goalAmount + '<br/><b>Amount to donate:</b> <input id="amountToDonate"/>' + '<button onclick="alert(ddd)">Donate</button></center>');
+            });
         }
 
-    </script>
+        function CommitDonate()
+        {
+
+        }
+        </script>
 
     <!--==============================content================================-->
     <section id="content">
@@ -149,8 +172,8 @@
                                 <th>Living Place</th>
                                 <th>Collected</th>
                                 <th>Goal</th>
-                                <th>D</th>
-                                <th>R</th>
+                                <th>User ID</th>
+                                <th>Request ID</th>
                             </tr>
                         </thead>
 
@@ -161,8 +184,8 @@
                                 <th>Living Place</th>
                                 <th>Collected</th>
                                 <th>Goal</th>
-                                <th>D</th>
-                                <th>R</th>
+                                <th>User ID</th>
+                                <th>Request ID</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -210,9 +233,9 @@
         <a class="popup-with-form" href="#test-form">Open form</a>
 
         <!-- form itself -->
-        <form id="test-form" class="white-popup-block mfp-hide">
-            <h1>Form</h1>
-            <fieldset style="border:0;">
+        <div id="test-form" class="white-popup-block mfp-hide">
+            <h1>Request</h1>
+            @*<fieldset style="border:0;" id="requestModalForm">
                 <p>Lightbox has an option to automatically focus on the first input. It's strongly recommended to use <code>inline</code> popup type for lightboxes with form instead of <code>ajax</code> (to keep entered data if the user accidentally refreshed the page).</p>
                 <ol>
                     <li>
@@ -232,8 +255,8 @@
                         <textarea id="textarea">Try to resize me to see how popup CSS-based resizing works.</textarea>
                     </li>
                 </ol>
-            </fieldset>
-        </form>
+            </fieldset>*@
+        </div>
 
         @*END*@
 
