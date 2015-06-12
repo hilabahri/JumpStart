@@ -366,6 +366,11 @@ namespace JumpStart.APILogics
             //}
 
             //DataManager.Instance.RemoveFundsFromDonor(donatorId, (int)(value - leftToPay));
+            int missingAmount = DataManager.Instance.GetNeededMoney(courseId) - (int)(GetCollectedAmountForDonatedCourse(donatedId, courseId)) + 1;
+            if (value > missingAmount )
+            {
+                value = missingAmount;
+            }
             APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, cardNumber.ToString()), value, CurrencyType.USD);
             DataManager.Instance.AddNewTransaction(new Transaction() { Amount = (int)value, CourseID = courseId, Status = TransactionStatus.PENDING, CreationDate = DateTime.Now, DonatedID = donatedId, DonorID = donatorId, DonorWantToBeExposed = true, EndDate = DateTime.Now.AddDays(30) });
             if (DataManager.Instance.GetNeededMoney(courseId) <= GetCollectedAmountForDonatedCourse(donatedId, courseId))
