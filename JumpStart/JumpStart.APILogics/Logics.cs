@@ -191,6 +191,46 @@ namespace JumpStart.APILogics
             return donatedAndFundDetails;
         }
 
+        public static JObject GetDonatedCoursesRequestsDetails(string donatedID)
+        {
+            try
+            {
+                List<FundRequest> fundRequests = DataManager.Instance.GetDonatedFundRequests(donatedID);
+                JObject details = new JObject();
+                JArray coursesArr = new JArray();
+                foreach (FundRequest fr in fundRequests)
+                {
+                    foreach (CourseInstance ci in fr.OptionalCourseInstances)
+                    {
+                        JObject cr = new JObject();
+                        cr.Add("name", DataManager.Instance.GetCourseDetails(fr.CourseID).CourseName);
+                        cr.Add("city", ci.City);
+                        ci.Dates.Sort();
+                        while (ci.Dates.First() < DateTime.Now)
+                        {
+                            ci.Dates.RemoveAt(0);
+                        }
+
+                        cr.Add("date", ci.Dates.First().ToString());
+                        cr.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, fr.CourseID).ToString() + "$");
+                        cr.Add("goalAmount", DataManager.Instance.GetCourseDetails(fr.CourseID).CoursePrice.ToString() + "$");
+                        coursesArr.Add(cr);
+                    }
+
+                }
+
+                details.Add("aaData", coursesArr);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            return new JObject();
+            
+
+        }
+
 
         /* public bool DonatedSignUp()
          {
@@ -260,6 +300,8 @@ namespace JumpStart.APILogics
             }
             return pendingCourses;
         }*/
+
+        // (Course) Name, Date, Collected, Goal.
 
         public static JObject GetDonorDetails(string donorID)
         {
