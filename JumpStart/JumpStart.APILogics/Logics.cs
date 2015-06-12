@@ -369,7 +369,11 @@ namespace JumpStart.APILogics
             DataManager.Instance.AddNewTransaction(new Transaction() { Amount = (int)value, CourseID = courseId, Status = TransactionStatus.PENDING, CreationDate = DateTime.Now, DonatedID = donatedId, DonorID = donatorId, DonorWantToBeExposed = true, EndDate = DateTime.Now.AddDays(30) });
             if (DataManager.Instance.GetNeededMoney(courseId) <= GetCollectedAmountForDonatedCourse(donatedId, courseId))
             {
-                //TODO mark as done
+                //if have to pay to bank
+                //  pay
+                //else
+                //  pay to card
+                APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, cardNumber.ToString()), leftToPay, CurrencyType.USD);
             }
 
         }

@@ -25,6 +25,9 @@ namespace JumpStart.MasterCardAPI
             PaymentsApi.PublicApiKey = extPublicKey ?? publicKey;
             PaymentsApi.PrivateApiKey = extPrivateKey ?? privateKey;
 
+            if (!CardIsNotLostOrStolen(card.Number))
+                return false;
+
             PaymentsApi api = new PaymentsApi();
             Payment payment = new Payment()
             {
