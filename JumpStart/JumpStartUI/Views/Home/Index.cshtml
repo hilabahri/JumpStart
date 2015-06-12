@@ -37,12 +37,12 @@
     <header>
         <div>
             <div>
-                <h1><a href="index.html"><img src="~/images/logo.jpg" alt=""></a></h1>
+                <h1><a href="index.html"><img src="~/images/logo.jpg" alt="" width="187"></a></h1>
                 <nav>
                     <ul class="menu">
                         <li class="current"><a href="#">Donor</a></li>
-                        <li><a class="popup-with-form" href="#addFunds-form">Add funds</a></li>
-                        <li><a href="~/Donated/Index">Donated</a></li>
+                        @*<li><a class="popup-with-form" href="#addFunds-form">Add funds</a></li>*@
+                        <li><a href="~/Donated/Index">Recipient</a></li>
                     </ul>
                 </nav>
                 <div class="clear"></div>
@@ -77,7 +77,7 @@
 
 
             var requestsTable = $('#RequestsTable').dataTable({
-                "ajax": "Home/GetFundingRequestsMetaData",
+                "ajax": "GetFundingRequestsMetaData",
                 "columns": [
                     { "data": "course" },
                     { "data": "age" },
@@ -127,7 +127,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "Home/GetFundingRequestData",
+                url: "GetFundingRequestData",
                 data: data,
                 //success: success,
                 datatype: "json"
@@ -155,7 +155,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "Home/NewTransaction",
+                url: "NewTransaction",
                 data: data,
                 //success: success,
                 datatype: "json"
@@ -174,7 +174,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "Home/NewTransaction",
+                url: "NewTransaction",
                 data: data,
                 //success: success,
                 datatype: "json"
@@ -186,24 +186,28 @@
 
     <!--==============================content================================-->
     <section id="content">
-        <div class="ic">More Website Templates TemplateMonster.com. June 25, 2012!</div>
+        <div class="ic"> June 12, 2015!</div>
         <div class="container_12">
             <div class="grid_6 box-1">
-                <img src="images/page1-img1.png" alt="">
+                <img src="~/images/page1-img1.png" alt="">
                 <div class="extra-wrap">
                     <h2>Who We Are</h2>
-                    <p>Start-Up is one of <a href="http://blog.templatemonster.com/free-website-templates/" class="link" target="_blank">free website templates</a> created by TemplateMonster.com team. It’s optimized for 1280X1024 screen resolution.</p>
+                    <p>JumpSTART is a project created at the great MasterCard hackathon. <br/>Our goal is to enable p2p fundings for meaningful support.</p>
                 </div>
             </div>
             <div class="grid_6 box-1">
-                <img src="images/page1-img2.png" alt="">
+                <img src="~/images/page1-img2.png" alt="">
                 <div class="extra-wrap">
                     <h2>Starting Up...</h2>
-                    <p>The PSD source files of this <a href="http://blog.templatemonster.com/2012/06/25/free-website-template-jquery-slider-business/" class="link">Start-Up Template</a> are available for free for the registered members of TemplateMonster.com.</p>
+                    <p>People in need of a jump start can raise funding from different people. Donors can help people directly, ensuring credibility for their purpose.</p>
                 </div>
+            </div>
+            <div>
+                <h2> Start Helping! </h2>
             </div>
             <div class="grid_12 box-2">
                 <div>
+                    <button>rehab</button><button>coaching</button>
                     <table id="RequestsTable" class="display" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -235,32 +239,32 @@
                 <h2 class="top-1">Our Ideas</h2>
                 <div class="box-3">
                     <div>
-                        <img src="images/page1-img3.jpg" alt="" class="img-border">
-                        <a href="#" class="link-2">Nam liber tempor</a>
-                        <p>Uwisi eniminim veniam quis nostrud exerci tation ullamcorperex eacom.</p>
+                        <img src="~/images/page1-img3.jpg" alt="" class="img-border">
+                        <a href="#" class="link-2">Crowd Funding</a>
+                        <p>Contribute today to what you believe in!</p>
                     </div>
                     <div>
-                        <img src="images/page1-img4.jpg" alt="" class="img-border">
-                        <a href="#" class="link-2">Cum soluta nobis</a>
-                        <p>Duis autem vel eum iriure dolor henrerit vulputate velit esse molestie.</p>
+                        <img src="~/images/page1-img4.jpg" alt="" class="img-border">
+                        <a href="#" class="link-2">Direct contact</a>
+                        <p>Choose a specific requirement waiting to be accomplished, and help a person get a jump start in life! </p>
                     </div>
                     <div class="last">
-                        <img src="images/page1-img5.jpg" alt="" class="img-border">
-                        <a href="#" class="link-2">Eleifend optiongue</a>
-                        <p>Feugiat nulla facilisis atvero eros et accumsan et iusto odio dignissim.</p>
+                        <img src="~/images/page1-img5.jpg" alt="" class="img-border">
+                        <a href="#" class="link-2">Get a little push</a>
+                        <p>Join us and enjoy the power of networks to help you acheive your goals!</p>
                     </div>
                 </div>
                 <a href="#" class="button top-4">Read More</a>
             </div>
             <div class="grid_4">
-                <h2 class="top-1">Latest Events</h2>
+                <h2 class="top-1">Popular Courses</h2>
                 <div class="box-4 top-2">
-                    <div class="date"><strong>29</strong><span>May, 2012</span></div>
-                    <p><a href="#" class="link">Lorem ipsum dolor sit amet consetetur</a><br>Sadipscing elitriam nonumy eirmod nonumy eirmod tempor invidunt labore.</p>
+                    <div class="date"><strong>29</strong><span>July, 2015</span></div>
+                    <p><a href="#" class="link">How to cut your expenses</a><br>A three day workshop with the guidance of the coacher Alon Gal</p>
                 </div>
                 <div class="box-4 top-3">
-                    <div class="date"><strong>21</strong><span>May, 2012</span></div>
-                    <p><a href="#" class="link">Dolore magna aliquyam erat dolor</a><br>At vero eos et accusam et justo duo dolores et ea rebum stet clita kasd gubergren.</p>
+                    <div class="date"><strong>21</strong><span>September, 2015</span></div>
+                    <p><a href="#" class="link">Drug Rehab</a><br>A three month of intensive treatment with the best personnel.</p>
                 </div>
                 <a href="#" class="button top-4">Read More</a>
             </div>
@@ -282,8 +286,8 @@
     </section>
     <!--==============================footer=================================-->
     <footer>
-        <p>© 2012 Start-Up<br> <a rel="nofollow" href="http://www.templatemonster.com/" target="_blank" class="link">Website Template</a>  by TemplateMonster.com</p> | <a rel="nofollow" href="http://www.html5xcss3.com/" target="_blank" class="link">Html5xcss3.com</a>
-        <div class="soc-icons"><span>Follow Us:</span><a href="#"><img src="images/icon-1.jpg" alt=""></a><a href="#"><img src="images/icon-2.jpg" alt=""></a><a href="#"><img src="images/icon-3.jpg" alt=""></a></div>
+        <p>© 2015 JumpSTART</p>
+        <div class="soc-icons"><span>Follow Us:</span><a href="#"><img src="~/images/icon-1.jpg" alt=""></a><a href="#"><img src="~/images/icon-2.jpg" alt=""></a><a href="#"><img src="~/images/icon-3.jpg" alt=""></a></div>
     </footer>
 </body>
 </html>

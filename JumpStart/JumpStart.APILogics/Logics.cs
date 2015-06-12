@@ -213,7 +213,7 @@ namespace JumpStart.APILogics
                             ci.Dates.RemoveAt(0);
                         }
 
-                        cr.Add("date", ci.Dates.First().ToString());
+                        cr.Add("date", ci.Dates.First().ToString("dd/MM/yyyy"));
                         cr.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, fr.CourseID));
                         cr.Add("goalAmount", DataManager.Instance.GetCourseDetails(fr.CourseID).CoursePrice);
                         cr.Add("city", ci.City);
@@ -356,28 +356,52 @@ namespace JumpStart.APILogics
 
         }
 
-        public static void NewTransaction(string donatorId, string courseId, string donatedId, long cardNumber, long value)
+        public static void NewTransaction(string donatorId, string courseId, string donatedId, long cardNumber, int value)
         {
             var donator = DataManager.Instance.GetDonorDetails(donatorId);
-            int leftToPay = (int)(value - donator.OnlineMoney);
-            if (leftToPay <= 0)
-            {
-                return;
-            }
+            //int leftToPay = (int)(donator.OnlineMoney - value);
+            //if (leftToPay <= 0)
+            //{
+            //    return;
+            //}
 
-            DataManager.Instance.RemoveFundsFromDonor(donatorId, (int)(value - leftToPay));
-            APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, cardNumber.ToString()), leftToPay, CurrencyType.USD);
+            //DataManager.Instance.RemoveFundsFromDonor(donatorId, (int)(value - leftToPay));
+            APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, cardNumber.ToString()), value, CurrencyType.USD);
             DataManager.Instance.AddNewTransaction(new Transaction() { Amount = (int)value, CourseID = courseId, Status = TransactionStatus.PENDING, CreationDate = DateTime.Now, DonatedID = donatedId, DonorID = donatorId, DonorWantToBeExposed = true, EndDate = DateTime.Now.AddDays(30) });
             if (DataManager.Instance.GetNeededMoney(courseId) <= GetCollectedAmountForDonatedCourse(donatedId, courseId))
             {
                 //if have to pay to bank
                 if (ConfigurationManager.AppSettings["isCourseGetBank"] == "1")
-                    APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, ConfigurationManager.AppSettings["ourCard"]), leftToPay, CurrencyType.USD, "cool pay", ConfigurationManager.AppSettings["mechentPublic"], ConfigurationManager.AppSettings["mechentPrivate"]);
+                    APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, ConfigurationManager.AppSettings["ourCard"]), value, CurrencyType.USD, "cool pay", ConfigurationManager.AppSettings["mechentPublic"], ConfigurationManager.AppSettings["mechentPrivate"]);
                 else
                     APIConnector.MakeRepowerTransaction(long.Parse(ConfigurationManager.AppSettings["merchantPrePaid"]), value);
             }
 
         }
+
+
+        //public static void NewTransaction(string donatorId, string courseId, string donatedId, long cardNumber, long value)
+        //{
+        //    var donator = DataManager.Instance.GetDonorDetails(donatorId);
+        //    int leftToPay = (int)(value -donator.OnlineMoney);
+        //    if (leftToPay <= 0)
+        //    {
+        //        return;
+        //    }
+
+        //    DataManager.Instance.RemoveFundsFromDonor(donatorId, (int)(value - leftToPay));
+        //    APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, cardNumber.ToString()), leftToPay, CurrencyType.USD);
+        //    DataManager.Instance.AddNewTransaction(new Transaction() { Amount = (int)value, CourseID = courseId, Status = TransactionStatus.PENDING, CreationDate = DateTime.Now, DonatedID = donatedId, DonorID = donatorId, DonorWantToBeExposed = true, EndDate = DateTime.Now.AddDays(30) });
+        //    if (DataManager.Instance.GetNeededMoney(courseId) <= GetCollectedAmountForDonatedCourse(donatedId, courseId))
+        //    {
+        //        //if have to pay to bank
+        //        if (ConfigurationManager.AppSettings["isCourseGetBank"] == "1")
+        //            APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, ConfigurationManager.AppSettings["ourCard"]), leftToPay, CurrencyType.USD, "cool pay", ConfigurationManager.AppSettings["mechentPublic"], ConfigurationManager.AppSettings["mechentPrivate"]);
+        //        else
+        //            APIConnector.MakeRepowerTransaction(long.Parse(ConfigurationManager.AppSettings["merchantPrePaid"]), value);
+        //    }
+
+        //}
 
 
         public static void DonatedTransactionForItsFundRequest()

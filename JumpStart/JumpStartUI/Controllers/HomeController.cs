@@ -136,7 +136,7 @@ namespace JumpStartUI.Controllers
 
         }
 
-        public void NewTransaction(string donatorId, string courseId, string donatedId, long cardNumber, long value)
+        public void NewTransaction(string donatorId, string courseId, string donatedId, long cardNumber, int value)
         {
             Logics.NewTransaction(donatorId, courseId, donatedId, cardNumber, value);
         }
