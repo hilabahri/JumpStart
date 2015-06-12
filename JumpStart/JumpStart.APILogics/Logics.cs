@@ -56,7 +56,7 @@ namespace JumpStart.APILogics
                 {
                     if (tran.CourseID == courseID)
                     {
-                        sum+=tran.Amount;
+                        sum += tran.Amount;
                     }
                 }
             }
@@ -115,8 +115,8 @@ namespace JumpStart.APILogics
                 }
 
                 donatedAndFundDetails.Add("age", (DateTime.Now.Year - donated.DateOfBirth.Year).ToString());
-                donatedAndFundDetails.Add("course", DataManager.Instance.GetCourseDetails(courseID).CourseName);               
-                donatedAndFundDetails.Add("course_instances",  GetFundRequestCourseOptionalDates(donatedID, courseID));
+                donatedAndFundDetails.Add("course", DataManager.Instance.GetCourseDetails(courseID).CourseName);
+                donatedAndFundDetails.Add("course_instances", GetFundRequestCourseOptionalDates(donatedID, courseID));
                 donatedAndFundDetails.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, courseID).ToString() + "$");
                 donatedAndFundDetails.Add("goalAmount", DataManager.Instance.GetCourseDetails(courseID).CoursePrice.ToString() + "$");
 
@@ -148,7 +148,8 @@ namespace JumpStart.APILogics
                     result = JObject.Parse(JsonConvert.SerializeObject(donated));
                 }
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.StackTrace);
             }
             return result;
@@ -189,6 +190,46 @@ namespace JumpStart.APILogics
                 return null;
             }
             return donatedAndFundDetails;
+        }
+
+        public static JObject GetDonatedCoursesRequestsDetails(string donatedID)
+        {
+            try
+            {
+                List<FundRequest> fundRequests = DataManager.Instance.GetDonatedFundRequests(donatedID);
+                JObject details = new JObject();
+                JArray coursesArr = new JArray();
+                foreach (FundRequest fr in fundRequests)
+                {
+                    foreach (CourseInstance ci in fr.OptionalCourseInstances)
+                    {
+                        JObject cr = new JObject();
+                        cr.Add("name", DataManager.Instance.GetCourseDetails(fr.CourseID).CourseName);
+                        cr.Add("city", ci.City);
+                        ci.Dates.Sort();
+                        while (ci.Dates.First() < DateTime.Now)
+                        {
+                            ci.Dates.RemoveAt(0);
+                        }
+
+                        cr.Add("date", ci.Dates.First().ToString());
+                        cr.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, fr.CourseID).ToString() + "$");
+                        cr.Add("goalAmount", DataManager.Instance.GetCourseDetails(fr.CourseID).CoursePrice.ToString() + "$");
+                        coursesArr.Add(cr);
+                    }
+
+                }
+
+                details.Add("aaData", coursesArr);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
+            return new JObject();
+
+
         }
 
 
@@ -261,6 +302,8 @@ namespace JumpStart.APILogics
             return pendingCourses;
         }*/
 
+        // (Course) Name, Date, Collected, Goal.
+
         public static JObject GetDonorDetails(string donorID)
         {
             Donor donor = new Donor();
@@ -304,37 +347,16 @@ namespace JumpStart.APILogics
 
                 DataManager.Instance.AddNewFundRequestToDonated(donatedId, fund);
             }
-           catch (Exception ex)
-            {
-                Console.WriteLine(ex.StackTrace);
-           }
-
-        }
-
-        public static bool NewTransaction(string donorID, string donatedId, string courseId, int amount, DateTime endTime, bool donorToBeExposed)
-        {
-            // Use the mastercard API 
-
-            try
-            {
-                // Create a transaction object
-
-                // Get the money using api
-
-                // APIConnector.PayFromCreditCard(card)
-
-                // Check if it is a final transaction for the fund request
-
-                // if it is - then 
-
-            }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.StackTrace);
-                return false;
             }
 
-            return true;
+        }
+
+        public static void NewTransaction()
+        {
+            // Use the mastercard API 
 
         }
 
