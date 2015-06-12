@@ -224,6 +224,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="css\DonatedPage\styles.css" />
     <Content Include="css\grid_12.css" />
     <Content Include="css\ie.css" />
     <Content Include="css\reset.css" />

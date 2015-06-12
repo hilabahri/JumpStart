@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,25 @@ namespace JumpStartUI.Controllers
 
         public ActionResult Index()
         {
-            return View(new Donated{LastName = "hi"});
+            return View();
+        }
+
+        public JObject AcquireData()
+        {
+            return new JObject{
+                {"aaData", new JArray{
+                    new JObject{
+                        {"Name", "bla"},{"Date", "12-32-12"},{"Collected", 12},{"Goal", 56}
+                     },
+                    new JObject{
+                        {"Name", "bla2"},{"Date", "12-32-12"},{"Collected", 78},{"Goal", 56}
+                     },
+                                         new JObject{
+                        {"Name", "bla3"},{"Date", ""},{"Collected", 12},{"Goal", 56}
+                     }
+                }
+                }                
+            };
         }
 
     }
