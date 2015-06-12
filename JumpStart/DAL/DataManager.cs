@@ -97,7 +97,7 @@ namespace DAL
 
         public List<FundRequest> GetDonatedFundRequests(string donatedId)
         {
-            return GetAllDonatedUsers().SelectMany(donated => donated.FundRequests).ToList();
+            return GetDonatedDetails(donatedId).FundRequests;
         }
 
         //public Donated GetDonatedFundRequestByID(string fundId)
