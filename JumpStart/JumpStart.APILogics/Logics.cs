@@ -195,10 +195,10 @@ namespace JumpStart.APILogics
 
         public static JObject GetDonatedCoursesRequestsDetails(string donatedID)
         {
+            JObject details = new JObject();
             try
             {
                 List<FundRequest> fundRequests = DataManager.Instance.GetDonatedFundRequests(donatedID);
-                JObject details = new JObject();
                 JArray coursesArr = new JArray();
                 foreach (FundRequest fr in fundRequests)
                 {
@@ -206,7 +206,6 @@ namespace JumpStart.APILogics
                     {
                         JObject cr = new JObject();
                         cr.Add("name", DataManager.Instance.GetCourseDetails(fr.CourseID).CourseName);
-                        cr.Add("city", ci.City);
                         ci.Dates.Sort();
                         while (ci.Dates.First() < DateTime.Now)
                         {
@@ -214,8 +213,9 @@ namespace JumpStart.APILogics
                         }
 
                         cr.Add("date", ci.Dates.First().ToString());
-                        cr.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, fr.CourseID).ToString() + "$");
-                        cr.Add("goalAmount", DataManager.Instance.GetCourseDetails(fr.CourseID).CoursePrice.ToString() + "$");
+                        cr.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, fr.CourseID));
+                        cr.Add("goalAmount", DataManager.Instance.GetCourseDetails(fr.CourseID).CoursePrice);
+                        cr.Add("city", ci.City);
                         coursesArr.Add(cr);
                     }
 
@@ -228,7 +228,7 @@ namespace JumpStart.APILogics
             {
                 Console.WriteLine(ex.StackTrace);
             }
-            return new JObject();
+            return details;
 
 
         }
@@ -377,6 +377,7 @@ namespace JumpStart.APILogics
             }
 
         }
+
 
         public static void DonatedTransactionForItsFundRequest()
         {
