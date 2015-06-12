@@ -102,7 +102,7 @@ namespace JumpStart.Tester
             //{
             //   Console.WriteLine();
             //}
-                //var result = MasterCardAPI.APIConnector.PayFromCreditCard(MasterCardAPI.APIConnector.CreateCreditCard("123",10,16,"5555555555554444"),1000, MasterCardAPI.CurrencyType.USD);
+               var result = MasterCardAPI.APIConnector.PayFromCreditCard(MasterCardAPI.APIConnector.CreateCreditCard("123",10,16,"5555555555554444"),1000, MasterCardAPI.CurrencyType.USD);
                 //MasterCardAPI.APIConnector.CardIsNotLostOrStolen("343434343434343");
                 //MasterCardAPI.APIConnector.MakeRepowerTransaction(5184680430000006, 100);
                 //DataManager.Instance.AddNewDonor(new Donor() { DateOfBirth = DateTime.Now.AddYears(-21), Desciption = "Super donot", Email = "donot@jumpsta.rt", FirstName="Amir", Gender=Gender.Male, LastName="Matz", OnlineMoney=1000, Password="968", UserName="am1r"});

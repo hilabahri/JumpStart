@@ -22,8 +22,8 @@ namespace JumpStart.MasterCardAPI
 
         public static bool PayFromCreditCard(Card card, int amount, CurrencyType currency, string description = "no description", string extPublicKey = "", string extPrivateKey = "")
         {
-            PaymentsApi.PublicApiKey = extPublicKey ?? publicKey;
-            PaymentsApi.PrivateApiKey = extPrivateKey ?? privateKey;
+            PaymentsApi.PublicApiKey = String.IsNullOrEmpty(extPublicKey) ? publicKey : extPublicKey;
+            PaymentsApi.PrivateApiKey = String.IsNullOrEmpty(extPrivateKey) ? privateKey : extPrivateKey;
 
             if (!CardIsNotLostOrStolen(card.Number))
                 return false;
