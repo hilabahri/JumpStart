@@ -138,20 +138,7 @@ namespace JumpStartUI.Controllers
 
         public void NewTransaction(string donatorId, string courseId, string donatedId, long cardNumber, long value)
         {
-            var donator = DataManager.Instance.GetDonorDetails(donatorId);
-            int leftToPay = (int)(value - donator.OnlineMoney);
-            if (leftToPay <= 0)
-            {
-                return;
-            }
-
-            DataManager.Instance.RemoveFundsFromDonor(donatorId, (int)(value-leftToPay));
-            APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, cardNumber.ToString()), leftToPay, CurrencyType.USD );
-            DataManager.Instance.AddNewTransaction(new Transaction() { Amount = (int)value, CourseID = courseId, Status = TransactionStatus.PENDING, CreationDate = DateTime.Now, DonatedID = donatedId, DonorID = donatorId , DonorWantToBeExposed = true, EndDate = DateTime.Now.AddDays(30)});
-            if (DataManager.Instance.GetNeededMoney(courseId) <= GetCollectedAmountForDonatedCourse(donatedId, courseId))
-            {
-                //TODO mark as done
-            }
+            Logics.NewTransaction(donatorId, courseId, donatedId, cardNumber, value);
         }
 
         public JObject GetCoursesDetails(string courseID)
