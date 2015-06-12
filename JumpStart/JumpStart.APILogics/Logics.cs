@@ -31,8 +31,8 @@ namespace JumpStart.APILogics
                         fundRequestMetaData.Add("course", DataManager.Instance.GetCourseDetails(fr.CourseID).CourseName);
                         fundRequestMetaData.Add("age", (DateTime.Now.Year - donatedU.DateOfBirth.Year).ToString());
                         fundRequestMetaData.Add("city", donatedU.UserAddress.City);
-                        fundRequestMetaData.Add("collectedAmount", GetCollectedAmountForDonatedCourse(donatedU.Id, fr.CourseID).ToString() + "$");
-                        fundRequestMetaData.Add("goalAmount", DataManager.Instance.GetCourseDetails(fr.CourseID).CoursePrice.ToString() + "$");
+                        fundRequestMetaData.Add("collectedAmount", "$" + GetCollectedAmountForDonatedCourse(donatedU.Id, fr.CourseID).ToString());
+                        fundRequestMetaData.Add("goalAmount", "$" + DataManager.Instance.GetCourseDetails(fr.CourseID).CoursePrice.ToString());
                         metaDataArr.Add(fundRequestMetaData);
                     }
 
@@ -119,8 +119,8 @@ namespace JumpStart.APILogics
                 donatedAndFundDetails.Add("age", (DateTime.Now.Year - donated.DateOfBirth.Year).ToString());
                 donatedAndFundDetails.Add("course", DataManager.Instance.GetCourseDetails(courseID).CourseName);
                 donatedAndFundDetails.Add("course_instances", GetFundRequestCourseOptionalDates(donatedID, courseID));
-                donatedAndFundDetails.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, courseID).ToString() + "$");
-                donatedAndFundDetails.Add("goalAmount", DataManager.Instance.GetCourseDetails(courseID).CoursePrice.ToString() + "$");
+                donatedAndFundDetails.Add("collectedAmount", "$" + Logics.GetCollectedAmountForDonatedCourse(donatedID, courseID).ToString());
+                donatedAndFundDetails.Add("goalAmount", "$" + DataManager.Instance.GetCourseDetails(courseID).CoursePrice.ToString());
 
                 // Remove the unneccasery details
                 donatedAndFundDetails.Remove("userName");
