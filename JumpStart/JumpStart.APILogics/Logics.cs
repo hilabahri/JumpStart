@@ -67,7 +67,7 @@ namespace JumpStart.APILogics
             return sum;
         }
 
-        private static List<CourseInstance> GetFundRequestCourseOptionalDates(string donatedID, string courseID)
+        private static JArray GetFundRequestCourseOptionalDates(string donatedID, string courseID)
         {
             List<FundRequest> funds;
             try
@@ -77,18 +77,28 @@ namespace JumpStart.APILogics
                 {
                     if (fr.CourseID == courseID)
                     {
-                        return fr.OptionalCourseInstances;
+                        JArray instancesArr = new JArray();
+
+                        foreach (CourseInstance ci in fr.OptionalCourseInstances)
+                        {
+                            JObject obj = new JObject();
+                            obj.Add("city", ci.City);
+                            obj.Add("dates", ci.Dates.ToString());
+                            instancesArr.Add(obj);
+                        }
+                        return instancesArr;
                     }
                 }
             }
-            catch (Exception)
-            { }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
 
-            return null;
+            return new JArray();
         }
 
 
-        //TODO
         public static JObject GetFundingRequestData(string donatedID, string courseID)
         {
             JObject donatedAndFundDetails = new JObject();
@@ -105,10 +115,8 @@ namespace JumpStart.APILogics
                 }
 
                 donatedAndFundDetails.Add("age", (DateTime.Now.Year - donated.DateOfBirth.Year).ToString());
-                donatedAndFundDetails.Add("course", DataManager.Instance.GetCourseDetails(courseID).CourseName);
-                JObject funds = JObject.Parse(JsonConvert.SerializeObject(donatedAndFundDetails.GetValue("fundRequests")));
-
-                donatedAndFundDetails.Add("");
+                donatedAndFundDetails.Add("course", DataManager.Instance.GetCourseDetails(courseID).CourseName);               
+                donatedAndFundDetails.Add("course_instances",  GetFundRequestCourseOptionalDates(donatedID, courseID));
                 donatedAndFundDetails.Add("collectedAmount", Logics.GetCollectedAmountForDonatedCourse(donatedID, courseID).ToString() + "$");
                 donatedAndFundDetails.Add("goalAmount", DataManager.Instance.GetCourseDetails(courseID).CoursePrice.ToString() + "$");
 
@@ -156,7 +164,10 @@ namespace JumpStart.APILogics
                     return JObject.Parse(JsonConvert.SerializeObject(donor));
                 }
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
             return null;
         }
 
@@ -172,8 +183,9 @@ namespace JumpStart.APILogics
                 donatedAndFundDetails.Remove("password");
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.StackTrace);
                 return null;
             }
             return donatedAndFundDetails;
@@ -260,7 +272,10 @@ namespace JumpStart.APILogics
                 donorObj.Remove("password");
                 return donorObj;
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
             return null;
         }
 
@@ -273,7 +288,10 @@ namespace JumpStart.APILogics
                 JObject donorTransactionsObj = JObject.Parse(JsonConvert.SerializeObject(donorTransactions));
                 return donorTransactionsObj;
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
             return null;
         }
 
@@ -286,13 +304,38 @@ namespace JumpStart.APILogics
 
                 DataManager.Instance.AddNewFundRequestToDonated(donatedId, fund);
             }
-            catch (Exception) { }
+           catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+           }
 
         }
 
-        public static void NewTransaction()
+        public static bool NewTransaction(string donorID, string donatedId, string courseId, int amount, DateTime endTime, bool donorToBeExposed)
         {
             // Use the mastercard API 
+
+            try
+            {
+                // Create a transaction object
+
+                // Get the money using api
+
+                // APIConnector.PayFromCreditCard(card)
+
+                // Check if it is a final transaction for the fund request
+
+                // if it is - then 
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+                return false;
+            }
+
+            return true;
+
         }
 
         public static void DonatedTransactionForItsFundRequest()
@@ -306,7 +349,10 @@ namespace JumpStart.APILogics
             {
                 return JObject.Parse(JsonConvert.SerializeObject(DataManager.Instance.GetCourseDetails(courseID)));
             }
-            catch (Exception) { }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.StackTrace);
+            }
 
             return null;
         }
