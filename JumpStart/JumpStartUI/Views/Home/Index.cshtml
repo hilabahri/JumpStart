@@ -40,11 +40,9 @@
                 <h1><a href="index.html"><img src="~/images/logo.jpg" alt=""></a></h1>
                 <nav>
                     <ul class="menu">
-                        <li class="current"><a href="index.html">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="#" onclick="hehe()">Services</a></li>
-                        <li><a href="products.html">Products</a></li>
-                        <li><a href="contacts.html">Contacts</a></li>
+                        <li class="current"><a href="#">Donor</a></li>
+                        <li><a class="popup-with-form" href="#addFunds-form">Add funds</a></li>
+                        <li><a href="~/Donated/Index">Donated</a></li>
                     </ul>
                 </nav>
                 <div class="clear"></div>
@@ -165,6 +163,25 @@
                 alert('Transfer accepted');
             });
         }
+
+        function fundsToAdd() {
+            var data = {};
+            data.donatorId = donatorId;
+            data.courseId = courseId;
+            data.donatedId = donatedId;
+            data.cardNumber = document.getElementById("cardNumber").value;
+            data.value = document.getElementById("amountToDonate").value;
+
+            $.ajax({
+                type: "POST",
+                url: "Home/NewTransaction",
+                data: data,
+                //success: success,
+                datatype: "json"
+            }).success(function () {
+                alert('Transfer accepted');
+            });
+        }
         </script>
 
     <!--==============================content================================-->
@@ -251,37 +268,14 @@
         </div>
 
 
-        @*START*@
-        <!-- link that opens popup -->
-        <a class="popup-with-form" href="#test-form">Open form</a>
+        <div id="addFunds-form" class="white-popup-block mfp-hide" style="width: 360px;">
+            <b>Funds to add: </b> <input id="fundsToAdd"/>
+            <button onclick="addFunds()">Add</button>
+        </div>
 
         <!-- form itself -->
         <div id="test-form" class="white-popup-block mfp-hide">
-            <h1>Request</h1>
-            @*<fieldset style="border:0;" id="requestModalForm">
-                <p>Lightbox has an option to automatically focus on the first input. It's strongly recommended to use <code>inline</code> popup type for lightboxes with form instead of <code>ajax</code> (to keep entered data if the user accidentally refreshed the page).</p>
-                <ol>
-                    <li>
-                        <label for="name">Name</label>
-                        <input id="name" name="name" type="text" placeholder="Name" required="">
-                    </li>
-                    <li>
-                        <label for="email">Email</label>
-                        <input id="email" name="email" type="email" placeholder="example@domain.com" required="">
-                    </li>
-                    <li>
-                        <label for="phone">Phone</label>
-                        <input id="phone" name="phone" type="tel" placeholder="Eg. +447500000000" required="">
-                    </li>
-                    <li>
-                        <label for="textarea">Textarea</label><br>
-                        <textarea id="textarea">Try to resize me to see how popup CSS-based resizing works.</textarea>
-                    </li>
-                </ol>
-            </fieldset>*@
         </div>
-
-        @*END*@
 
 
 
