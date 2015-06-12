@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
     <title>Home</title>
-    <meta charset="utf-8">
-    @*<link rel="stylesheet" type="text/css" media="screen" href="css/reset.css">*@
+    <meta charset="utf-8"> 
     <link rel="stylesheet" type="text/css" media="screen" href="css/grid_12.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
     <link href='http://fonts.googleapis.com/css?family=Lato:300italic' rel='stylesheet' type='text/css'>
@@ -38,7 +37,7 @@
     <header>
         <div>
             <div>
-                <h1><a href="index.html"><img src="images/logo.jpg" alt=""></a></h1>
+                <h1><a href="index.html"><img src="~/images/logo.jpg" alt=""></a></h1>
                 <nav>
                     <ul class="menu">
                         <li class="current"><a href="index.html">Home</a></li>
@@ -54,6 +53,11 @@
     </header>
 
     <script>
+        //Globals
+        var donatedId;
+        var courseId;
+        var donatorId = '5579f6d6052921397816ce61';
+
         $(document).ready(function () {
             $('.popup-with-form').magnificPopup({
                 type: 'inline',
@@ -108,10 +112,6 @@
 
         });
 
-        //Globals
-        var donatedId;
-        var courseId;
-
         function rowClick(currentRow) {
             $.magnificPopup.open({
                 items: {
@@ -149,7 +149,7 @@
         function CommitDonate()
         {
             var data = {};
-            data.donatorId = 1;
+            data.donatorId = donatorId;
             data.courseId = courseId;
             data.donatedId = donatedId;
             data.cardNumber = document.getElementById("cardNumber").value;
