@@ -32,6 +32,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MongoDB.Bson, Version=2.0.0.788, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Externals\mongodb\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.0.0.788, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Externals\mongodb\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.0.0.788, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Externals\mongodb\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Externals\newtonsoft\Newtonsoft.Json.dll</HintPath>
@@ -62,6 +74,10 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{cfdf8b6b-4049-4eee-9e63-74a69a380168}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JumpStart.APILogics\JumpStart.APILogics.csproj">
+      <Project>{68593f16-23ec-4899-9bcf-d8d1ba935337}</Project>
+      <Name>JumpStart.APILogics</Name>
     </ProjectReference>
     <ProjectReference Include="..\JumpStart.MasterCardAPI\JumpStart.MasterCardAPI.csproj">
       <Project>{bc9e40ae-cce2-4ee8-be35-71708f686086}</Project>
