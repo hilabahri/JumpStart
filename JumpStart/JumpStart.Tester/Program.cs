@@ -24,7 +24,8 @@ namespace JumpStart.Tester
             //DataManager.Instance.AddNewCourse(new Course() { CourseInfo = "A very very good course", CourseName = "Coursera", CoursePrice = 300.0, Instances = new List<CourseInstance> { new CourseInstance(){ City="Tel Aviv", Dates = new List<DateTime>(){DateTime.Now.AddMonths(4)}}}, LengthInWeeks = 5 });
             //Logics.GetCollectedAmountForDonatedCourse("5579f9fb0529214ae03e3701", "5579f9fa0529214ae03e3700");
             //Logics.GetFundingRequestData("5579f9fb0529214ae03e3701", "5579f9fa0529214ae03e3700");
-            Logics.DonatedSignIn("liad","968");
+            //Logics.DonatedSignIn("liad","968");
+            Logics.GetFundingRequestData("5579f9fb0529214ae03e3701", "5579f9fa0529214ae03e3700");
             Console.ReadKey();
         }
     }

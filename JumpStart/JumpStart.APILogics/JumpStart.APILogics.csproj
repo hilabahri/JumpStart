@@ -34,6 +34,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Externals\newtonsoft\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="SimplifySDK">
+      <HintPath>..\Externals\api\SimplifySDK.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -54,6 +57,10 @@
     <ProjectReference Include="..\DAL\DAL.csproj">
       <Project>{cfdf8b6b-4049-4eee-9e63-74a69a380168}</Project>
       <Name>DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JumpStart.MasterCardAPI\JumpStart.MasterCardAPI.csproj">
+      <Project>{bc9e40ae-cce2-4ee8-be35-71708f686086}</Project>
+      <Name>JumpStart.MasterCardAPI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
