@@ -107,6 +107,11 @@
             });
 
         });
+
+        //Globals
+        var donatedId;
+        var courseId;
+
         function rowClick(currentRow) {
             $.magnificPopup.open({
                 items: {
@@ -118,6 +123,9 @@
             var data = {};
             data.donatedID = currentRow[5];
             data.courseID = currentRow[6];
+
+            donatedId = currentRow[5];
+            courseId = currentRow[6];
 
             $.ajax({
                 type: "POST",
@@ -134,13 +142,28 @@
                     firstName = '****';
                     lastName = '****';
                 }
-                $('#test-form').html('<center><b>First name:</b> ' + firstName + ' <b>Last name:</b> ' + lastName + ' <b>City:</b> ' + data.address.city + '<br/><b>Description:</b> ' + data.description + '<br/><b>Gender:</b> ' + data.gender + ' <b>Age:</b> ' + data.age + '<br/><b>Course:</b> ' + data.course + "<br/><b>Collected Amount:</b> " + data.collectedAmount + " <b>Goal Amount:</b> " + data.goalAmount + '<br/><b>Amount to donate:</b> <input id="amountToDonate"/>' + '<button onclick="alert(ddd)">Donate</button></center>');
+                $('#test-form').html('<center><b>First name:</b> ' + firstName + ' <b>Last name:</b> ' + lastName + ' <b>City:</b> ' + data.address.city + '<br/><b>Description:</b> ' + data.description + '<br/><b>Gender:</b> ' + data.gender + ' <b>Age:</b> ' + data.age + '<br/><b>Course:</b> ' + data.course + "<br/><b>Collected Amount:</b> " + data.collectedAmount + " <b>Goal Amount:</b> " + data.goalAmount + '<br/><b>Credit card number:</b> <input id="cardNumber" value="0"/><br/><b>Amount to donate:</b> <input id="amountToDonate"/>' + '<button onclick="CommitDonate()">Donate</button></center>');
             });
         }
 
         function CommitDonate()
         {
+            var data = {};
+            data.donatorId = 1;
+            data.courseId = courseId;
+            data.donatedId = donatedId;
+            data.cardNumber = document.getElementById("cardNumber").value;
+            data.value = document.getElementById("amountToDonate").value;
 
+            $.ajax({
+                type: "POST",
+                url: "Home/NewTransaction",
+                data: data,
+                //success: success,
+                datatype: "json"
+            }).success(function () {
+                alert('Transfer accepted');
+            });
         }
         </script>
 
