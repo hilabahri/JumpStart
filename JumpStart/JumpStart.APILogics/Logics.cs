@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -370,10 +371,10 @@ namespace JumpStart.APILogics
             if (DataManager.Instance.GetNeededMoney(courseId) <= GetCollectedAmountForDonatedCourse(donatedId, courseId))
             {
                 //if have to pay to bank
-                //  pay
-                //else
-                //  pay to card
-                APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, cardNumber.ToString()), leftToPay, CurrencyType.USD);
+                if (ConfigurationManager.AppSettings["isCourseGetBank"] == "1")
+                    APIConnector.PayFromCreditCard(APIConnector.CreateCreditCard("123", 10, 16, ConfigurationManager.AppSettings["ourCard"]), leftToPay, CurrencyType.USD, "cool pay", ConfigurationManager.AppSettings["mechentPublic"], ConfigurationManager.AppSettings["mechentPrivate"]);
+                else
+                    APIConnector.MakeRepowerTransaction(long.Parse(ConfigurationManager.AppSettings["merchantPrePaid"]), value);
             }
 
         }
