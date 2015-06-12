@@ -55,6 +55,8 @@
         var donatedId;
         var courseId;
         var donatorId = '5579f6d6052921397816ce61';
+        var isTableCollorsSet = false;
+        var pColor = {};
 
         $(document).ready(function () {
             $('.popup-with-form').magnificPopup({
@@ -84,13 +86,15 @@
                     { "data": "city" },
                     { "data": "collectedAmount" },
                     { "data": "goalAmount" },
-                    { "data": "donaterID"},
-                    {"data": "courseID"}
+                    { "data": "donaterID" },
+                    { "data": "courseID" }
                 ]
             }).ajaxComplete(function () {
                 var table = document.getElementById("RequestsTable");
                 var rows = table.getElementsByTagName("tr");
-                for (i = 0; i < rows.length; i++) {
+
+
+                for (i = 1; i < rows.length; i++) {
                     var currentRow = table.rows[i];
                     var createClickHandler =
                         function (row) {
@@ -104,10 +108,48 @@
                             };
                         };
 
+                    if (currentRow.getElementsByTagName("td")[0] != undefined) {
+                        var cours = currentRow.getElementsByTagName("td")[0].innerHTML;
+                        if (pColor[cours] == undefined) {
+                            pColor[cours] = getRandomColor();
+                        }
+
+                        $(currentRow).css('background-color', pColor[cours]);
+                    }
+                    currentRow.onclick = createClickHandler(currentRow);
+                }
+
+            });
+            $('#RequestsTable').click(function () {
+                var table = document.getElementById("RequestsTable");
+                var rows = table.getElementsByTagName("tr");
+
+
+                for (i = 1; i < rows.length; i++) {
+                    var currentRow = table.rows[i];
+                    var createClickHandler =
+                        function (row) {
+                            return function () {
+                                var cols = [];
+                                var cell = row.getElementsByTagName("td");
+                                for (var col in cell) {
+                                    cols.push(cell[col].innerHTML);
+                                }
+                                rowClick(cols);
+                            };
+                        };
+
+                    if (currentRow.getElementsByTagName("td")[0] != undefined) {
+                        var cours = currentRow.getElementsByTagName("td")[0].innerHTML;
+                        if (pColor[cours] == undefined) {
+                            pColor[cours] = getRandomColor();
+                        }
+
+                        $(currentRow).css('background-color', pColor[cours]);
+                    }
                     currentRow.onclick = createClickHandler(currentRow);
                 }
             });
-
         });
 
         function rowClick(currentRow) {
@@ -182,6 +224,35 @@
                 alert('Transfer accepted');
             });
         }
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF'.split('');
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+
+            return increase_brightness(color, 55);
+        }
+        function increase_brightness(hex, percent) {
+            // strip the leading # if it's there
+            hex = hex.replace(/^\s*#|\s*$/g, '');
+
+            // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+            if (hex.length == 3) {
+                hex = hex.replace(/(.)/g, '$1$1');
+            }
+
+            var r = parseInt(hex.substr(0, 2), 16),
+                g = parseInt(hex.substr(2, 2), 16),
+                b = parseInt(hex.substr(4, 2), 16);
+
+            return '#' +
+               ((0 | (1 << 8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
+               ((0 | (1 << 8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
+               ((0 | (1 << 8) + b + (256 - b) * percent / 100).toString(16)).substr(1)
+        }
+    
         </script>
 
     <!--==============================content================================-->
@@ -213,7 +284,7 @@
                             <tr>
                                 <th>Purpose</th>
                                 <th>Age</th>
-                                <th>Living Place</th>
+                                <th>Location</th>
                                 <th>Collected</th>
                                 <th>Goal</th>
                                 <th>User ID</th>
@@ -225,7 +296,7 @@
                             <tr>
                                 <th>Purpose</th>
                                 <th>Age</th>
-                                <th>Living Place</th>
+                                <th>Location</th>
                                 <th>Collected</th>
                                 <th>Goal</th>
                                 <th>User ID</th>
